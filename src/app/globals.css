@@ -1,26 +1,88 @@
+/* globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Font Variables */
+  --font-nunito: 'Nunito', sans-serif;
+  
+  /* Color Variables */
+  --white: #ffffff;
+  --black: #171717;
+  --ui_background: #f5f7fa;
+  --primary_text: #1e1e1e;
+  --secondary_text: #555555;
+  --brand_color: #2563EB;
+  --brand_hover: #001E4D; 
+  --soft_brand_tint: #e6ecf5; 
+  --success_color: #28a745; 
+  --error_color: #bf0a30;
+  
+  /* Font Weights */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Tailwind Theme Extension */
+@theme {
+  /* Font Family */
+  --font-family-nunito: var(--font-nunito);
+  --font-sans: var(--font-nunito);
+  
+  /* Font Weights */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  
+  /* Colors */
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-ui-background: var(--ui_background);
+  --color-primary-text: var(--primary_text);
+  --color-secondary-text: var(--secondary_text);
+  --color-brand: var(--brand_color);
+  --color-brand-hover: var(--brand_hover);
+  --color-soft-brand-tint: var(--soft_brand_tint);
+  --color-success: var(--success_color);
+  --color-error: var(--error_color);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Apply Nunito globally */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-nunito);
+  background: var(--ui_background);
+  color: var(--primary_text);
+  font-weight: 400;
 }
+
+/* Font Weight Classes */
+.font-medium {
+  font-weight: var(--font-weight-medium);
+}
+
+.font-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+
+.font-bold {
+  font-weight: var(--font-weight-bold);
+}
+
+/* Custom Utility Classes */
+.button-brand {
+  background-color: var(--brand_color);
+}
+
+
+.bg-brand {
+  background-color: var(--brand_color);
+}
+
+.hover\:bg-brand-hover:hover {
+  background-color: var(--brand_hover);
+}
+
+.nav-container{
+  @apply container mx-auto
+}
+
