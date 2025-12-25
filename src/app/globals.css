@@ -100,6 +100,25 @@ body {
     font-size: 16px;
   }
 }
+.default-list-text {
+  color: #64748B;
+  font-size: 14px;      
+  line-height: 120%;
+}
+
+/* Tablet (≥ 768px) */
+@media (min-width: 768px) {
+  .default-list-text {
+    font-size: 15px;
+  }
+}
+
+/* Desktop (≥ 1024px) */
+@media (min-width: 1024px) {
+  .default-list-text {
+    font-size: 15px;
+  }
+}
 
 .hover\:bg-brand-hover:hover {
   background-color: var(--brand_hover);

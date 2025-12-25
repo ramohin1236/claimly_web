@@ -53,7 +53,7 @@ const Hero = () => {
           </div>
         </div>
         {/* Right side */}
-        <div className="flex-1 flex items-end justify-end">
+        <div className="flex-1 flex items-center justify-center lg:justify-end">
           <Image src={HeroImage} alt="Hero Image" />
         </div>
       </div>

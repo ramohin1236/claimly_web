@@ -29,4 +29,64 @@ export const InfoIcon = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
+export const ListIcon = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+     width={props?.width || "14"}
+      height={props?.height || "14"}
+      viewBox="0 0 16 20"
+       className={props.className}
+      fill="none"
+     {...props}
+    >
+      <path
+        d="M11.3333 4H14V6.66667"
+        stroke="#2563EB"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill={props?.fill || "#2563EB"}
+      />
+      <path
+        d="M10 8L14 4"
+        stroke="#2563EB"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill={props?.fill || "#2563EB"}
+      />
+      <path
+        d="M4.66667 16.0002H2V13.3335"
+        stroke="#2563EB"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill={props?.fill || "#2563EB"}
+      />
+      <path
+        d="M6 12L2 16"
+        stroke="#2563EB"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill={props?.fill || "#2563EB"}
+      />
+      <path
+        d="M9.34667 3.46684C8.91334 3.38017 8.45999 3.3335 7.99999 3.3335C4.31999 3.3335 1.33333 6.32016 1.33333 10.0002C1.33333 10.4602 1.38 10.9068 1.46667 11.3335"
+        stroke="#2563EB"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+fill={props?.fill || "#2563EB"}
+/>
+      <path
+        d="M6.65332 16.5332C7.08665 16.6198 7.54 16.6665 8 16.6665C11.68 16.6665 14.6667 13.6798 14.6667 9.99984C14.6667 9.5465 14.62 9.09984 14.5333 8.6665"
+        stroke="#2563EB"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill={props?.fill || "#2563EB"}
+      />
+    </svg>
+  );
+};
