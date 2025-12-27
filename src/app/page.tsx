@@ -1,6 +1,7 @@
 import Hero from "@/components/Home/Hero"
 import LogoSection from './../components/Home/LogoSection';
-import KeyBenefits from "@/components/shared/KeyBenefits";
+import KeyBenefits from "@/components/Home/KeyBenefits";
+import Timeline from "@/components/Home/Timeline";
 
 
 const Home = () => {
@@ -9,6 +10,7 @@ const Home = () => {
          <Hero/> 
          <LogoSection/>
          <KeyBenefits/>
+         <Timeline/>
     </div>
   )
 }
