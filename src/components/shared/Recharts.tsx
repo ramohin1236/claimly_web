@@ -1,14 +1,6 @@
 "use client";
 
-import { div } from "framer-motion/client";
-import {
-  Bar,
-  BarChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { Bar, BarChart, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 // Sample data
 const data = [
@@ -40,6 +32,7 @@ const renderCustomBarLabel = ({
 any) => (
   <text
     x={x + width / 2}
+    // x={x}
     y={y}
     fill="#475569"
     textAnchor="middle"
@@ -53,31 +46,41 @@ any) => (
 const RechartsComponent = () => {
   return (
     <div className="pt-10 md:pt-28 flex flex-col gap-4 md:gap-16">
-        <div className="flex justify-center flex-col  items-center gap-4">
-               <div>
-                 <h2 className='text-2xl lg:text-[40px] leading-[120%] font-semibold'>Insurer <span className='text-brand'>  Insights</span></h2>
-            </div>
-            <div className='flex flex-col gap-4'>
-                <p className='default-list-text'>Most asked-about insurers (last 30 days). Based on Claimly submissions. Not affiliated with any insurer.</p>
-               
-            </div>
+      <div className="flex justify-center flex-col  items-center gap-4">
+        <div>
+          <h2 className="text-2xl lg:text-[40px] leading-[120%] font-semibold">
+            Insurer <span className="text-brand"> Insights</span>
+          </h2>
         </div>
+        <div className="flex flex-col gap-4">
+          <p className="default-list-text">
+            Most asked-about insurers (last 30 days). Based on Claimly
+            submissions. Not affiliated with any insurer.
+          </p>
+        </div>
+      </div>
       <div className="w-full h-96 md:h-[500px] ">
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer width="100%" height="100%" className="overflow-hidden">
           <BarChart data={data} margin={margin}>
             <XAxis
               dataKey="name"
               tickFormatter={formatAxisTick}
-              className="font-bold"
-              tick={{ fontSize: 12 }}
+              tick={{
+                fontSize: 14,
+                fontWeight: 700,
+                fill: "#000000",
+              }}
+              axisLine={{
+                stroke: "#2563EB",
+              }}
             />
-            <YAxis tick={{ fontSize: 12 }} className="text-black font-bold" />
+            {/* <YAxis tick={{ fontSize: 12 }} className="text-black font-bold" /> */}
             <Tooltip />
             <Bar
               dataKey="uv"
               fill="#2563EB"
               radius={[6, 6, 0, 0]}
-              label={renderCustomBarLabel}
+              // label={renderCustomBarLabel}
             />
           </BarChart>
         </ResponsiveContainer>
