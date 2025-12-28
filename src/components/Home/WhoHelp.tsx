@@ -25,7 +25,7 @@ const WhoHelp = () => {
               </h2>
             </div>
             <div className="flex flex-col gap-4">
-              <p className="default-list-text">
+              <p className="default-list-text leading-normal!">
                 Claimly is for people who feel stuck, unsure, or worn down by an
                 insurance claim. If you’re not sure whether an offer is fair, a
                 decision makes sense, or things just aren’t moving, Claimly
@@ -51,9 +51,9 @@ const WhoHelp = () => {
               </ul>
             </div>
 
-            <div className="flex gap-1">
+            <div className="flex gap-1 ">
               <InfoIcon fill="var(--secondary_text)" width={14} height={14} />
-              <p className="default-text">
+              <p className="default-text ">
                 If your situation is urgent, involves serious injury, or
                 significant financial loss, you should seek independent legal
                 advice.

@@ -77,7 +77,7 @@ const KeyBenefits = () => {
               className="mb-2.5"
             />
             <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-            <p className="text-color-secondary text-sm flex-1">
+            <p className="text-color-secondary text-sm flex-1 leading-normal">
               {item.description}
             </p>
           </div>

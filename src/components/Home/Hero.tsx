@@ -20,7 +20,7 @@ const Hero = () => {
               accept or complain.
             </h1>
             <div className="flex flex-col gap-4">
-              <p className="default-text">
+              <p className="default-text leading-normal!">
                 Fill out a short form, upload your documents and Claimly will
                 provide you with a plain-English report on how your insurer may
                 view your claim, what information usually matters most, and how

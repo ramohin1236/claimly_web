@@ -13,7 +13,7 @@ const Understand = () => {
             Want to understand your own{" "}
             <span className="text-brand"> Claimly</span>
           </h2>
-          <p className="default-list-text">
+          <p className="default-list-text leading-normal!">
             If you’d like help understanding how these principles apply to your
             situation, you can submit your documents to Claimly for a
             structured, plain-English report.
