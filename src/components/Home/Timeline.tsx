@@ -66,7 +66,7 @@ const Timeline = () => {
   }, []);
 
   return (
-    <section className="py-20">
+    <section className="section-padding web-container">
       {/* Heading */}
       <div className="flex flex-col items-center justify-center gap-4 mb-14">
         <h2 className="text-2xl lg:text-[40px] leading-[120%] font-semibold">
@@ -97,9 +97,8 @@ const Timeline = () => {
             return (
               <div
                 key={index}
-                className={`relative flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-12 pl-12 lg:pl-0 ${
-                  isRight ? "lg:flex-row-reverse" : ""
-                }`}
+                className={`relative flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-12 pl-12 lg:pl-0 ${isRight ? "lg:flex-row-reverse" : ""
+                  }`}
               >
                 {/* Image */}
                 <div className="w-full lg:w-1/2 flex justify-center">
@@ -112,23 +111,21 @@ const Timeline = () => {
 
                 {/* Content */}
                 <div
-                  className={`w-full lg:w-1/2 relative ${
-                    isRight ? "lg:text-right" : "lg:text-left"
-                  }`}
+                  className={`w-full lg:w-1/2 relative ${isRight ? "lg:text-right" : "lg:text-left"
+                    }`}
                 >
                   {/* Step badge */}
                   <span
                     className={`inline-flex w-9 h-9 items-center justify-center mb-3 text-xs font-semibold rounded-full
                     absolute left-[-48px] top-0 lg:static
-                    ${
-                      index === 0
+                    ${index === 0
                         ? "bg-[#DCFCE7] text-[#22C55E]"
                         : index === 1
-                        ? "bg-[#FEE2E2] text-[#EF4444]"
-                        : index === 2
-                        ? "bg-[#DBEAFE] text-[#3B82F6]"
-                        : "bg-[#F3E8FF] text-[#A855F7]"
-                    }`}
+                          ? "bg-[#FEE2E2] text-[#EF4444]"
+                          : index === 2
+                            ? "bg-[#DBEAFE] text-[#3B82F6]"
+                            : "bg-[#F3E8FF] text-[#A855F7]"
+                      }`}
                   >
                     {item.step}
                   </span>

@@ -51,7 +51,7 @@ const Contact = () => {
 
           {/* Right Form */}
           <div className="w-full lg:w-1/2">
-            <form className="space-y-4 p-6 md:p-8">
+            <form className="space-y-4 lg:p-6 md:p-8">
               {/* Name */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-medium text-slate-700">
@@ -111,7 +111,7 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="flex flex-wrap md:gap-12">
+        <div className="flex md:gap-12 max-w-6xl mx-auto flex-col md:flex-row justify-center">
           <div className="border border-[#DBEAFE] rounded-md mt-10 mb-10 items-center  w-full h-full flex p-6 gap-4">
             <div>
               <Image

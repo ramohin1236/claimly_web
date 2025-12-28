@@ -54,7 +54,7 @@ const benefitsData = [
 
 const KeyBenefits = () => {
   return (
-    <div className="lg:gap-16 py-10 lg:py-28 flex flex-col gap-14">
+    <div className="web-container section-padding flex flex-col gap-12 lg:gap-16">
       <div className="flex flex-col items-center justify-center gap-4">
         <h2 className="text-3xl lg:text-[40px] leading-[120%] font-semibold">
           Key Benefits of Using <span className="text-brand"> Claimly</span>

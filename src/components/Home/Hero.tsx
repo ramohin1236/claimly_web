@@ -6,12 +6,12 @@ import { InfoIcon } from "../icons-svg/customIcons";
 
 const Hero = () => {
   return (
-    <div>
+    <div className="web-container section-padding pb-6 md:pb-12">
       {/* Hero Section */}
       <div className="lg:flex justify-around items-center mx-auto">
         {/* Left side */}
         <div className="flex flex-col flex-1 gap-2 md:gap-8">
-         
+
 
           <div className="flex flex-col gap-6 md:gap-9 ">
             <h1 className="font-bold text-3xl md:text-[44px] leading-[120%]">

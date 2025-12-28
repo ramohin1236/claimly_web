@@ -11,8 +11,8 @@ import linkdin from "../../../public/linkding.svg";
 import leftCorner from "../../../public/leftcorner.svg";
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#27272A] pt-20 pb-20 px-6 md:px-10 tracking-wide relative overflow-hidden">
-      <div className="container mx-auto">
+    <footer className="bg-[#27272A] section-padding relative overflow-hidden text-white/90">
+      <div className="nav-container">
         <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-0">
           {/* First column */}
           <div className="flex flex-col gap-3 md:gap-5 max-w-96">
@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
               created by an insurance specialist.
             </p>
             <p className="text-white text-[14px]">
-             General Information only - not legal or financial advice.
+              General Information only - not legal or financial advice.
             </p>
 
             {/* <a
@@ -98,7 +98,7 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <Link href="/terms" className="footer-link text-white text-xs">
-                  Privacy Policy  
+                  Privacy Policy
                 </Link>
               </li>
               <li>
@@ -165,7 +165,7 @@ const Footer: React.FC = () => {
             </ul>
 
             <p className="text-white text-xs mt-14">
-             © General Information only - not legal or financial advice.
+              © General Information only - not legal or financial advice.
             </p>
           </div>
         </div>
@@ -174,9 +174,9 @@ const Footer: React.FC = () => {
       <div className="h-0.5 bg-white/40 max-w-[1500] mx-auto mt-20"></div>
 
       <div className="mx-auto max-w-[800px]">
-          <p className="text-white text-xs text-center mt-8">
-              Claimly does not provide financial or legal advice. If you need specific financial or legal advice, you should seek the advice of a qualified expert. All information contained on this website is for information purposes only. 
-            </p>
+        <p className="text-white text-xs text-center mt-8">
+          Claimly does not provide financial or legal advice. If you need specific financial or legal advice, you should seek the advice of a qualified expert. All information contained on this website is for information purposes only.
+        </p>
       </div>
 
       {/* Background decoration */}

@@ -37,7 +37,7 @@ const About = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 ">
          {/* content */}
       <div className="container mx-auto px-8 py-10 md:py-28">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-5 md:gap-24">
@@ -81,7 +81,7 @@ const About = () => {
 
             {/* boxx */}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-10 ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-10 mb-28">
                 {/* first */}
             <div className="border border-[#DCFCE7] rounded-md px-6 lg:px-12 flex flex-col gap-2 mt-10 mb-10 items-center justify-center bg-white w-full h-full">
                 <Image

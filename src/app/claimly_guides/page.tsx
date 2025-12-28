@@ -39,7 +39,7 @@ const ClaimlyGuides = () => {
       <PageHero />
 
       {/* Main content */}
-      <div className="container mx-auto px-8">
+      <div className="container mx-auto px-8 py-10 lg:my-28">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 md:py-28">
           {guidesData.map((item) => (
             <div
