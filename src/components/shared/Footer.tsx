@@ -102,7 +102,7 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="footer-link text-white text-xs">
+                <Link href="/terms_condition" className="footer-link text-white text-xs">
                   Terms of condition
                 </Link>
               </li>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import images from "../../../public/hero 2-Photoroom.svg";
 
-const PrivacyPolicy = () => {
+const TermsCondition = () => {
   return (
     <div>
       {/* ===== HERO / HEADING ===== */}
@@ -16,14 +16,13 @@ const PrivacyPolicy = () => {
                   {" "}
                   <span className="bg-gradient-to-r from-[#1E293B] to-[#2563EB] bg-clip-text text-transparent">
                     {" "}
-                    Privacy
+                    Terms &
                   </span>{" "}
-                  <span className="text-[#2563EB]">Policy</span>{" "}
+                  <span className="text-[#2563EB]">Conditions</span>{" "}
                 </h2>
 
                 <p className="tracking-[1px] leading-[120%] text-color-secondary">
-                  We protect your personal and claim information with secure
-                  storage and strict access controls.
+                 Using Claimly means agreeing to our guidelines for a safe and responsible experience.
                 </p>
               </div>
 
@@ -45,7 +44,7 @@ const PrivacyPolicy = () => {
       <div className="container mx-auto px-6 lg:px-8 py-10 lg:py-28">
         <div className=" text-slate-700 space-y-6 text-sm lg:text-base leading-relaxed">
           <div className="space-y-1">
-            <h3 className="font-semibold text-slate-900">🔒 Privacy Policy</h3>
+            <h3 className="font-semibold text-slate-900">⚖️ Terms & Conditions</h3>
             <p>Effective Date: January 2025</p>
             <p>Last Updated: January 2025</p>
           </div>
@@ -233,4 +232,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default TermsCondition;
