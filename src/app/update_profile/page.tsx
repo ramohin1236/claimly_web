@@ -2,7 +2,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Camera, ArrowLeft } from "lucide-react";
+import { Camera } from "lucide-react";
 import backIcon from "../../../public/back.svg";
 import photo_camera from "../../../public/photo_camera.svg";
 import save from "../../../public/Vector (2).svg";
@@ -50,7 +50,7 @@ const UpdateProfilePage = () => {
 
   return (
   
-      <div className="container mx-auto my-12 lg:my-28">
+      <div className="container mx-auto px-6 lg:px-8 py-10 lg:py-28">
         {/* Header */}
         <div className="mb-10">
           <Link

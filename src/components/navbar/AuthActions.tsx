@@ -76,7 +76,7 @@ const AuthActions: React.FC<AuthActionsProps> = ({
                 label="My Profile"
               />
               <MenuItem
-                href="/dashboard/settings"
+                href="/settings"
                 icon={<Settings size={18} />}
                 label="Account Settings"
               />
@@ -152,7 +152,7 @@ const AuthActions: React.FC<AuthActionsProps> = ({
               label="My Profile"
             />
             <MobileItem
-              href="/dashboard/settings"
+              href="/settings"
               icon={<Settings />}
               label="Account Settings"
             />
