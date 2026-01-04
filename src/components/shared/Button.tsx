@@ -3,7 +3,7 @@ import Link from "next/link";
 
 interface ButtonProps {
   children?: React.ReactNode;
-  href?: string; // 👈 add this
+  href?: string; 
   type?: "button" | "submit" | "reset";
   onClick?: () => void;
   className?: string;
@@ -31,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({
   iconOnly = false,
 }) => {
   const baseClasses =
-    "inline-flex items-center justify-center gap-2 rounded transition-all duration-200 focus:outline-none";
+    "inline-flex items-center justify-center gap-2 rounded transition-all duration-200 transform group focus:outline-none";
 
   const variantClasses = {
     primary:
@@ -63,7 +63,11 @@ const Button: React.FC<ButtonProps> = ({
       <Link href={href} className={classes}>
         {leftIcon}
         {!iconOnly && children}
-        {rightIcon}
+        {rightIcon && (
+          <span className="transform transition-transform duration-200 group-hover:translate-x-1">
+            {rightIcon}
+          </span>
+        )}
       </Link>
     );
   }
@@ -77,7 +81,11 @@ const Button: React.FC<ButtonProps> = ({
     >
       {leftIcon}
       {!iconOnly && children}
-      {rightIcon}
+      {rightIcon && (
+        <span className="transform transition-transform duration-200 group-hover:translate-x-1">
+          {rightIcon}
+        </span>
+      )}
     </button>
   );
 };

@@ -1,8 +1,8 @@
 import Button from "@/components/shared/Button";
 import images from "../../../public/hero 2-Photoroom.svg";
 import Image from "next/image";
-import right_icon from "../../../public/bluearrow.svg";
 import Link from "next/link";
+import { MdArrowOutward } from "react-icons/md";
 
 const guidesData = [
   {
@@ -77,18 +77,12 @@ const ClaimlyGuides = () => {
               key={item.id}
               className="border border-[#2563EB] py-[44px] px-[32px] rounded-2xl bg-[#EFF6FF] flex flex-col justify-between gap-6 lg:gap-6"
             >
-              <p className="text-xl lg:text-3xl font-bold">{item.title}</p>
+              <p className="text-xl lg:text-2xl font-bold">{item.title}</p>
 
               <Link href={item.link}>
                 <Button
                   rightIcon={
-                    <Image
-                      src={right_icon}
-                      alt="arrow icon"
-                      width={16}
-                      height={16}
-                      className="transition-transform duration-200 group-hover:translate-x-1 w-4 h-4 ml-2.5 bg-[#2563EB0D]"
-                    />
+                   <MdArrowOutward className="text-xl"/>
                   }
                   variant="outline"
                   size="lg"
