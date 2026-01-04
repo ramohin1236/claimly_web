@@ -9,8 +9,8 @@ const Contact = () => {
     <div>
       {/* ===== HERO / HEADING ===== */}
       
-         <div className="flex flex-col py-10 px-7 lg:py-20 lg:px-24 bg-linear-to-l from-[#DBEAFE] to-[#EFF6FF] xl:flex-row justify-between items-center  gap-10 ">
-        <div className="container mx-auto px-6 lg:px-8">
+         <div className="flex flex-col py-10 px-7 lg:py-20 bg-linear-to-l from-[#DBEAFE] to-[#EFF6FF] xl:flex-row justify-between items-center  gap-10 ">
+        <div className="container mx-auto lg:px-8">
           <div className="container mx-auto">
             <div className="flex flex-col md:flex-row gap-10 justify-between items-center">
               {/* left */}
