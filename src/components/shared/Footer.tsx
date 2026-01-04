@@ -19,14 +19,16 @@ const Footer: React.FC = () => {
             <Link href="/" aria-label="Home">
               <Image src={taskalleyLogo} alt="Taskalley Logo" priority />
             </Link>
-            <p className="text-white text-[14px]">
-              Claimly helps you understand where you stand with your insurance
-              claim. Upload your documents and receive a plain-English report
-              created by an insurance specialist.
-            </p>
-            <p className="text-white text-[14px]">
-              General Information only - not legal or financial advice.
-            </p>
+            <div>
+              <p className="text-white text-[16px]">
+                Claimly helps you understand where you stand with your insurance
+                claim. Upload your documents and receive a plain-English report
+                created by an insurance specialist.
+              </p>
+              <p className="text-white text-[14px] mt-4">
+                General Information only - not legal or financial advice.
+              </p>
+            </div>
 
             {/* <a
               href="tel:+01234567899"
@@ -75,34 +77,43 @@ const Footer: React.FC = () => {
             <h4 className="text-lg mb-4 text-white font-semibold">
               Quick Links
             </h4>
-            <ul className="space-y-2 md:space-y-4">
+            <ul className="space-y-2 md:space-y-2 text-[16px]">
               <li>
-                <Link href="/" className="footer-link text-white text-xs">
+                <Link href="/" className="footer-link text-white text-[16px]">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="footer-link text-white text-xs">
+                <Link href="/about" className="footer-link text-white text-[16px]">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="footer-link text-white text-xs">
+                <Link
+                  href="/contact"
+                  className="footer-link text-white text-[16px]"
+                >
                   Contact Us
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="footer-link text-white text-xs">
+                <Link href="/faq" className="footer-link text-white text-[16px]">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/privacy_policy" className="footer-link text-white text-xs">
+                <Link
+                  href="/privacy_policy"
+                  className="footer-link text-white text-[16px]"
+                >
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms_condition" className="footer-link text-white text-xs">
+                <Link
+                  href="/terms_condition"
+                  className="footer-link text-white text-[16px]"
+                >
                   Terms of condition
                 </Link>
               </li>
@@ -111,9 +122,7 @@ const Footer: React.FC = () => {
 
           {/* Fourth column - Social */}
           <div className="flex flex-col gap-3.5">
-            <h4 className="text-lg mb-4 text-white font-semibold">
-              Follow Us
-            </h4>
+            <h4 className="text-lg mb-4 text-white font-semibold">Follow Us</h4>
             <ul className="flex items-center gap-6">
               <li>
                 <a
@@ -164,8 +173,8 @@ const Footer: React.FC = () => {
               </li>
             </ul>
 
-            <p className="text-white text-xs mt-14">
-              © General Information only - not legal or financial advice.
+            <p className="text-white text-[16px] text-xs mt-6">
+              © 2025 Claimly. All rights reserved.
             </p>
           </div>
         </div>
@@ -174,8 +183,11 @@ const Footer: React.FC = () => {
       <div className="h-0.5 bg-white/40 max-w-[1500] mx-auto mt-20"></div>
 
       <div className="mx-auto max-w-[800px]">
-        <p className="text-white text-xs text-center mt-8">
-          Claimly does not provide financial or legal advice. If you need specific financial or legal advice, you should seek the advice of a qualified expert. All information contained on this website is for information purposes only.
+        <p className="text-white text-[14px] text-center mt-8">
+          Claimly does not provide financial or legal advice. If you need
+          specific financial or legal advice, you should seek the advice of a
+          qualified expert. All information contained on this website is for
+          information purposes only.
         </p>
       </div>
 

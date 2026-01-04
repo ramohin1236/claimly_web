@@ -1,5 +1,4 @@
 import Button from "@/components/shared/Button";
-import PageHero from "@/components/shared/PageHero";
 import images from "../../../public/hero 2-Photoroom.svg";
 import Image from "next/image";
 import right_icon from "../../../public/bluearrow.svg";
@@ -71,12 +70,12 @@ const ClaimlyGuides = () => {
       </div>
 
       {/* Main content */}
-      <div className="container mx-auto px-8 py-10 lg:my-28">
+      <div className="container mx-auto px-8 py-4 lg:my-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 md:py-28">
           {guidesData.map((item) => (
             <div
               key={item.id}
-              className="border border-[#2563EB] py-[44px] px-[32px] rounded-2xl bg-[#EFF6FF] flex flex-col justify-between gap-6 lg:gap-10"
+              className="border border-[#2563EB] py-[44px] px-[32px] rounded-2xl bg-[#EFF6FF] flex flex-col justify-between gap-6 lg:gap-6"
             >
               <p className="text-xl lg:text-3xl font-bold">{item.title}</p>
 

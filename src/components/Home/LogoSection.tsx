@@ -43,7 +43,7 @@ const LogoSection = () => {
           </div>
         </div>
         {/* right section */}
-        <div className=' flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-5 justify-center items-center'>
+        <div className='w-full flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-2 gap-5 justify-center items-center'>
           <div className='py-2 px-6 lg:px-14 lg:py-6 bg-white border border-[#2563EB] rounded-lg flex items-center justify-center'>
             <Image
               src={logofirst}
