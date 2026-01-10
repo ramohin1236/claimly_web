@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useLoginMutation } from "@/store/feature/authApi/authApi";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   email: string
@@ -16,6 +17,7 @@ type Inputs = {
 }
 
 const Page: React.FC = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [login, { isLoading }] = useLoginMutation()
   const {
@@ -26,20 +28,22 @@ const Page: React.FC = () => {
   } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      const response = await login(data)
-      if (response?.data?.success) {
-        localStorage.setItem("accessToken", response?.data?.data?.accessToken)
-        toast.success(response?.data?.message || "Registration successful", {
+      const response = await login(data).unwrap();
+      if (response?.success) {
+        localStorage.setItem("accessToken", response?.data?.accessToken);
+        toast.success(response?.message || "Login successful", {
           style: {
             backgroundColor: "#dcfce7",
             color: "#166534",
             borderLeft: "6px solid #16a34a",
           },
         });
-        console.log(response?.data?.data?.accessToken)
+        router.push("/");
+
       }
     } catch (error: any) {
-      toast.error(error?.data?.message || "Failed to register", {
+
+      toast.error(error?.data?.message || "Failed to login", {
         style: {
           backgroundColor: "#fee2e2",
           color: "#991b1b",
@@ -47,10 +51,10 @@ const Page: React.FC = () => {
         },
       });
     }
-  }
+  };
 
   return (
-    <div className="max-w-6xl w-full mx-auto">
+    <div className="max-w-4xl w-full mx-auto">
       <div className="flex items-center gap-8">
         {/* Left Image */}
         <div className="w-full hidden lg:block">

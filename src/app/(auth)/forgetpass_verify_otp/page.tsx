@@ -95,7 +95,7 @@ const VerifyOtp: React.FC = () => {
                 });
 
 
-                router.push("/reset_password");
+                router.push("/forgetNewPassSet");
             }
         } catch (err: any) {
             const errorMessage = err?.data?.message || "OTP verification failed. Please try again.";

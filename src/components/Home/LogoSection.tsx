@@ -6,7 +6,7 @@ import logosecond from "../../../public/image 21 (2).png";
 import logothird from "../../../public/image 21 (3).png";
 import logofourth from "../../../public/image 21 (4).png";
 import logofifth from "../../../public/image 21 (5).png";
-import logosixth from "../../../public/image 21 (1).svg";
+import logosixth from "../../../public/nrma-insurance-logo-brandlogos.net_lenuv62fu.svg";
 
 const LogoSection = () => {
   return (
@@ -24,11 +24,12 @@ const LogoSection = () => {
             <p className="default-list-text">
               Claimly can be used with all Australian general insurers.
             </p>
-            <p className="default-list-text">Your report may include:</p>
+            <p className="default-list-text">What we help with:</p>
           </div>
           <div>
             <ul className="mt-2.5 space-y-2.5">
               {[
+                "Liability in dispute",
                 "Benchmarking your situation against AFCA decisions",
                 "Key considerations under the Insurance Contracts Act 1984 (Cth)",
                 "Insurer obligations under the General Insurance Code of Practice (GICOP)",
@@ -51,7 +52,7 @@ const LogoSection = () => {
               height={100}
               width={100}
               alt="AAMI"
-              
+
               className="object-cover"
             />
           </div>
