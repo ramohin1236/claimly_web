@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../shared/Button";
-import HeroImage from "../../../public/hero_imge.png";
+import HeroImage from "../../../public/Image group 1.png";
 import Image from "next/image";
 import { InfoIcon } from "../icons-svg/customIcons";
 import Link from "next/link";
@@ -9,13 +9,13 @@ const Hero = () => {
   return (
     <div className="container mx-auto  py-5 lg:py-16">
       {/* Hero Section */}
-      <div className="lg:flex justify-around items-center mx-auto">
+      <div className="lg:flex justify-between items-center mx-auto gap-12 xl:gap-20">
         {/* Left side */}
         <div className="flex flex-col flex-1 gap-2 md:gap-8">
 
 
           <div className="flex flex-col gap-6 md:gap-9 ">
-            <h1 className="font-bold text-3xl md:text-[44px] leading-[120%]">
+            <h1 className="font-semibold text-3xl md:text-[44px] leading-[120%]">
               Understand your{" "}
               <span className="text-brand">insurance claim </span> before you
               accept or complain.
@@ -30,11 +30,11 @@ const Hero = () => {
             </div>
 
             <div>
-             <Link href='/my_claims'>
-                 <Button variant="primary" size="lg" className="font-medium">
-                Analyse My Claim
-              </Button>
-             </Link>
+              <Link href='/my_claims'>
+                <Button variant="primary" size="lg" className="font-medium">
+                  Analyse My Claim
+                </Button>
+              </Link>
             </div>
 
             <div className="flex items-center gap-1">
@@ -47,7 +47,12 @@ const Hero = () => {
         </div>
         {/* Right side */}
         <div className="flex-1 flex items-center justify-center lg:justify-end">
-          <Image src={HeroImage} alt="Hero Image" />
+          <Image
+            src={HeroImage}
+            alt="Hero Image"
+            priority
+            className="w-full h-auto max-w-[480px] lg:max-w-[500px] xl:max-w-[550px] transition-transform duration-700 ease-in-out hover:scale-105"
+          />
         </div>
       </div>
     </div>
