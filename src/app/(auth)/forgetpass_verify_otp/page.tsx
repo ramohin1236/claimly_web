@@ -86,9 +86,6 @@ const VerifyOtp: React.FC = () => {
                     localStorage.setItem("accessToken", result.data.accessToken);
                 }
 
-                // Clear the stored email
-                // localStorage.removeItem("email");
-
                 toast.success(result?.message || "OTP verified successfully! Welcome!", {
                     style: {
                         backgroundColor: "#dcfce7",
@@ -97,8 +94,8 @@ const VerifyOtp: React.FC = () => {
                     },
                 });
 
-                // Navigate to home page (user is now logged in)
-                router.push("/");
+
+                router.push("/reset_password");
             }
         } catch (err: any) {
             const errorMessage = err?.data?.message || "OTP verification failed. Please try again.";

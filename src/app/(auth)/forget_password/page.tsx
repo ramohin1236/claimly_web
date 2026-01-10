@@ -26,7 +26,11 @@ const Page: React.FC = () => {
     const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
         try {
             const result = await forgotPassword(data).unwrap();
+            const email = result?.data?.email
+            console.log(result);
+
             if (result?.success) {
+                localStorage.setItem("email", email);
                 toast.success(result?.message || "Email sent           successfully", {
                     style: {
                         backgroundColor: "#d1fae5",
