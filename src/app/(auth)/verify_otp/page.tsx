@@ -79,7 +79,7 @@ const VerifyOtp: React.FC = () => {
     console.log(userData)
     try {
       const result = await verifyRegisterOtpMutation(userData).unwrap();
-      console.log("token data",result)
+      console.log("token data", result)
       if (result?.success) {
         // Store the access token for automatic login
         if (result?.data?.accessToken) {
@@ -113,7 +113,7 @@ const VerifyOtp: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-6xl w-full mx-auto">
       <div className="flex items-center gap-8">
         {/* Left Image */}
         <div className="w-full hidden lg:block">
@@ -123,7 +123,7 @@ const VerifyOtp: React.FC = () => {
             alt="verify-otp-image"
             width={100}
             height={100}
-            className="w-full"
+            className="w-full scale-110"
           />
         </div>
 

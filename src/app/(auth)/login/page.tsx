@@ -17,8 +17,8 @@ type Inputs = {
 
 const Page: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [login, { isLoading }] = useLoginMutation() 
-   const {
+  const [login, { isLoading }] = useLoginMutation()
+  const {
     register,
     handleSubmit,
     watch,
@@ -27,30 +27,30 @@ const Page: React.FC = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       const response = await login(data)
-      if(response?.data?.success){
+      if (response?.data?.success) {
         localStorage.setItem("accessToken", response?.data?.data?.accessToken)
         toast.success(response?.data?.message || "Registration successful", {
-                 style: {
-                   backgroundColor: "#dcfce7",
-                   color: "#166534",
-                   borderLeft: "6px solid #16a34a",
-                 },
-               });
-        console.log( response?.data?.data?.accessToken)
+          style: {
+            backgroundColor: "#dcfce7",
+            color: "#166534",
+            borderLeft: "6px solid #16a34a",
+          },
+        });
+        console.log(response?.data?.data?.accessToken)
       }
-    } catch (error:any) {
-       toast.error(error?.data?.message || "Failed to register", {
-              style: {
-                backgroundColor: "#fee2e2",
-                color: "#991b1b",
-                borderLeft: "6px solid #dc2626",
-              },
-            });
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Failed to register", {
+        style: {
+          backgroundColor: "#fee2e2",
+          color: "#991b1b",
+          borderLeft: "6px solid #dc2626",
+        },
+      });
     }
   }
 
   return (
-    <div>
+    <div className="max-w-6xl w-full mx-auto">
       <div className="flex items-center gap-8">
         {/* Left Image */}
         <div className="w-full hidden lg:block">
@@ -60,7 +60,7 @@ const Page: React.FC = () => {
             alt="login-image"
             width={100}
             height={100}
-            className="w-full"
+            className="w-full scale-110"
           />
         </div>
 
@@ -83,11 +83,11 @@ const Page: React.FC = () => {
                   Email
                 </label>
                 <input
-                {...register("email", { required: true })}
+                  {...register("email", { required: true })}
                   type="email"
                   required
                   placeholder="Enter email"
-                  className="w-full text-sm text-[#1E293B] bg-whitefocus:bg-transparent pl-4 pr-4 py-3.5 rounded-xl border border-[#DBEAFE] focus:border-blue-600 outline-none"
+                  className="w-full text-sm text-[#1E293B] bg-white focus:bg-transparent pl-4 pr-4 py-3.5 rounded-xl border border-[#DBEAFE] focus:border-blue-600 outline-none"
                 />
               </div>
 
@@ -99,11 +99,11 @@ const Page: React.FC = () => {
 
                 <div className="relative">
                   <input
-                  {...register("password", { required: true })}
+                    {...register("password", { required: true })}
                     type={showPassword ? "text" : "password"}
                     required
                     placeholder="Enter password"
-                    className="w-full text-sm text-[#1E293B] bg-whitefocus:bg-transparent pl-4 pr-4 py-3.5 rounded-xl border border-[#DBEAFE] focus:border-blue-600 outline-none"
+                    className="w-full text-sm text-[#1E293B] bg-white focus:bg-transparent pl-4 pr-4 py-3.5 rounded-xl border border-[#DBEAFE] focus:border-blue-600 outline-none"
                   />
 
                   {/* Eye Icon */}
@@ -163,7 +163,7 @@ const Page: React.FC = () => {
                 </label>
 
                 <Link
-                  href="/verify_email"
+                  href="/forget_password"
                   className="text-[#4E9AF1] text-sm hover:underline"
                 >
                   Forgot Password?

@@ -9,7 +9,7 @@ const Page: React.FC = () => {
 
 
   return (
-    <div>
+    <div className="max-w-6xl w-full mx-auto">
       <div className="flex items-center gap-8">
         {/* Left Image */}
         <div className="w-full hidden lg:block">
@@ -19,7 +19,7 @@ const Page: React.FC = () => {
             alt="login-image"
             width={100}
             height={100}
-            className="w-full"
+            className="w-full scale-110"
           />
         </div>
 
@@ -43,7 +43,7 @@ const Page: React.FC = () => {
                   type="email"
                   required
                   placeholder="est********************ail.com"
-                  className="w-full text-sm text-[#1E293B] bg-whitefocus:bg-transparent pl-4 pr-4 py-3.5 rounded-xl border border-[#DBEAFE] focus:border-blue-600 outline-none"
+                  className="w-full text-sm text-[#1E293B] bg-white focus:bg-transparent pl-4 pr-4 py-3.5 rounded-xl border border-[#DBEAFE] focus:border-blue-600 outline-none"
                 />
               </div>
             </div>

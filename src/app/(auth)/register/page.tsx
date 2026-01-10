@@ -96,7 +96,7 @@ const Page: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="max-w-6xl w-full mx-auto">
       <div className="flex items-center gap-8">
         {/* Left Image */}
         <div className="w-full hidden lg:block">
@@ -106,7 +106,7 @@ const Page: React.FC = () => {
             alt="login-image"
             width={100}
             height={100}
-            className="w-full"
+            className="w-full scale-110"
           />
         </div>
 
