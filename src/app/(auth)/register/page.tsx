@@ -96,7 +96,7 @@ const Page: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl w-full mx-auto">
+    <div className="">
       <div className="flex items-center gap-8">
         {/* Left Image */}
         <div className="w-full hidden lg:block">
@@ -106,12 +106,12 @@ const Page: React.FC = () => {
             alt="login-image"
             width={100}
             height={100}
-            className="w-full scale-110"
+            className="w-xl"
           />
         </div>
 
         {/* Right Form */}
-        <div className="w-full p-8 max-w-lg mx-auto flex flex-col gap-4">
+        <div className="w-full max-w-2xl p-8 mx-auto flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-[#1E293B]/70 text-3xl">
               Create Your Account
@@ -275,7 +275,7 @@ const Page: React.FC = () => {
             <p className="text-sm mt-3 text-slate-600">
               Already have an account?
               <Link
-                href="/"
+                href="/login"
                 className="text-[#4E9AF1] font-medium hover:underline ml-1"
               >
                 Log In

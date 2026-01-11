@@ -187,7 +187,7 @@ const Page: React.FC = () => {
             <p className="text-sm mt-6 text-slate-600">
               Don't have an account?
               <Link
-                href="/"
+                href="/register"
                 className="text-[#4E9AF1] font-medium hover:underline ml-1"
               >
                 Sign Up
