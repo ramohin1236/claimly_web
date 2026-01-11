@@ -226,6 +226,9 @@ import Image from "next/image";
 import Button from "../shared/Button";
 import { User, FileText, Settings, LogOut } from "lucide-react";
 
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
 interface AuthActionsProps {
   isLogin: boolean;
   onActionClick?: () => void;
@@ -235,6 +238,7 @@ const AuthActions: React.FC<AuthActionsProps> = ({
   isLogin,
   onActionClick,
 }) => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -257,6 +261,15 @@ const AuthActions: React.FC<AuthActionsProps> = ({
     onActionClick?.();
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("email");
+    toast.success("Logged out successfully");
+    setOpen(false);
+    onActionClick?.();
+    router.push("/login");
+  };
+
   // Dummy user data - replace with your actual user state/context
   const userData = {
     name: "Mojahid Islam",
@@ -266,7 +279,7 @@ const AuthActions: React.FC<AuthActionsProps> = ({
 
   /* ================= AVATAR COMPONENT ================= */
   const UserAvatar = ({ size = 36, fontSize = "text-sm" }: { size?: number, fontSize?: string }) => {
-    const firstLetter = userData.name.charAt(0).toUpperCase();
+    const firstLetter = userData.name?.charAt(0).toUpperCase() || "U";
 
     return (
       <div
@@ -327,14 +340,13 @@ const AuthActions: React.FC<AuthActionsProps> = ({
             </div>
 
             {/* Logout */}
-            <Link
-              href="/"
-              onClick={handleClose}
-              className="mt-2 flex items-center gap-3 px-3 py-2 rounded-md text-[#64748B] hover:bg-red-50 transition-colors"
+            <button
+              onClick={handleLogout}
+              className="mt-2 w-full flex items-center gap-3 px-3 py-2 rounded-md text-[#64748B] hover:bg-red-50 transition-colors"
             >
               <LogOut size={18} />
               <span className="text-sm font-medium">Sign Out</span>
-            </Link>
+            </button>
           </div>
         )}
       </div>
@@ -366,7 +378,14 @@ const AuthActions: React.FC<AuthActionsProps> = ({
             <MobileItem href="/my_claims" icon={<FileText />} label="My Claims" onClick={handleClose} />
             <MobileItem href="/my_profile" icon={<User />} label="My Profile" onClick={handleClose} />
             <MobileItem href="/settings" icon={<Settings />} label="Account Settings" onClick={handleClose} />
-            <MobileItem href="/" icon={<LogOut />} label="Sign Out" onClick={handleClose} danger />
+
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-3 w-full px-3 py-3 rounded-md transition-colors text-red-500 hover:bg-red-50"
+            >
+              <LogOut />
+              <span className="font-medium">Sign Out</span>
+            </button>
           </div>
         </div>
       </div>

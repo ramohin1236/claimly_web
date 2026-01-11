@@ -31,6 +31,7 @@ const Page: React.FC = () => {
       const response = await login(data).unwrap();
       if (response?.success) {
         localStorage.setItem("accessToken", response?.data?.accessToken);
+        localStorage.setItem("email", data.email);
         toast.success(response?.message || "Login successful", {
           style: {
             backgroundColor: "#dcfce7",

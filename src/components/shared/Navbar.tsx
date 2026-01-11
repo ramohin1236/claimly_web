@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import weblogo from "../../../public/brand_logo.svg";
@@ -9,10 +9,15 @@ import AuthActions from "../navbar/AuthActions";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const isLogin = true;
+  const [isLogin, setIsLogin] = useState(false);
 
   const pathname = usePathname();
+
+  useEffect(() => {
+    const userEmail = localStorage.getItem("email");
+    const userAccessToken = localStorage.getItem("accessToken");
+    setIsLogin(!!(userEmail && userAccessToken));
+  }, [pathname]);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -38,8 +43,8 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={`px-4 py-2 rounded text-sm font-medium transition ${pathname === link.href
-                    ? "bg-[#2563EB] text-white"
-                    : "text-gray-700 hover:bg-gray-100"
+                  ? "bg-[#2563EB] text-white"
+                  : "text-gray-700 hover:bg-gray-100"
                   }`}
               >
                 {link.name}
@@ -96,8 +101,8 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
                     className={`block px-4 py-3 rounded-lg text-sm transition ${pathname === link.href
-                        ? "bg-[#2563EB] text-white"
-                        : "text-gray-700 hover:bg-gray-100"
+                      ? "bg-[#2563EB] text-white"
+                      : "text-gray-700 hover:bg-gray-100"
                       }`}
                   >
                     {link.name}
