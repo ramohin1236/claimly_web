@@ -42,16 +42,16 @@ const ClaimCard: React.FC<ClaimCardProps> = ({
         <div className="bg-white rounded-[16px] border border-[#DBEAFE] p-5  transition-shadow flex flex-col h-full">
             {/* Header: Avatar & Status Tag */}
             <div className="flex justify-between items-start mb-4">
-                <div className=" rounded-md overflow-hidden border border-[#2563EB]/80 h-11 w-11">
+                <div className="rounded-full overflow-hidden border border-[#2563EB]/80 h-11 w-11 flex-shrink-0">
                     {!avatarUrl ? (
                         renderAvater(name)
                     ) : (
                         <Image
                             src={avatarUrl}
                             alt={name}
-                            width={40}
-                            height={40}
-                            className="object-cover "
+                            width={44}
+                            height={44}
+                            className="object-cover rounded-full h-full w-full"
                         />
                     )}
                 </div>

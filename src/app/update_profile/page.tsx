@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Camera } from "lucide-react";
@@ -9,25 +9,49 @@ import save from "../../../public/Vector (2).svg";
 
 import { useRouter } from "next/navigation";
 import Button from "@/components/shared/Button";
+import { useGetMyProfileQuery, useUpdateProfileMutation } from "@/store/feature/myProfileApi/myProfileApi";
+import { toast } from "sonner";
+import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 
 const UpdateProfilePage = () => {
   const router = useRouter();
+  const { data: profileData } = useGetMyProfileQuery();
+  const [updateProfile, { isLoading: isSaving }] = useUpdateProfileMutation();
+
   const [profileImage, setProfileImage] = useState<string>("/man.png");
-  const [isSaving, setIsSaving] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
   const [formData, setFormData] = useState({
-    fullName: "Mojahid Islam",
-    email: "mojahid@gmail.com",
-    phone: "+61 412 345 678",
+    fullName: "",
+    email: "",
+    phone: "",
   });
+
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (profileData?.data) {
+      const user = profileData.data;
+      setFormData({
+        fullName: user.fullName || "",
+        email: user.email || "",
+        phone: user.phone || "",
+      });
+      if (user.normalUser?.[0]?.profile_image) {
+        setProfileImage(`${getBaseUrl()}/${user.normalUser[0].profile_image.replace(/\\/g, "/")}`);
+      }
+    }
+  }, [profileData]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setImageFile(file);
       const reader = new FileReader();
       reader.onload = (event) => {
         setProfileImage(event.target?.result as string);
       };
-      reader.readAsDataURL(e.target.files[0]);
+      reader.readAsDataURL(file);
     }
   };
 
@@ -36,16 +60,38 @@ const UpdateProfilePage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSaving(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSaving(false);
-      alert("Profile updated successfully!");
-      router.push("/my_profile");
-    }, 1500);
+    try {
+      const submitData = new FormData();
+      submitData.append("fullName", formData.fullName);
+      submitData.append("phone", formData.phone);
+      if (imageFile) {
+        submitData.append("profile_image", imageFile);
+      }
+
+      const res = await updateProfile(submitData).unwrap();
+
+      if (res?.success) {
+        toast.success(res?.message || "Profile updated successfully!", {
+          style: {
+            backgroundColor: "#dcfce7",
+            color: "#166534",
+            borderLeft: "6px solid #16a34a",
+          },
+        });
+        router.push("/my_profile");
+      }
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to update profile", {
+        style: {
+          backgroundColor: "#fee2e2",
+          color: "#991b1b",
+          borderLeft: "6px solid #dc2626",
+        },
+      });
+    }
   };
 
   return (
@@ -108,6 +154,7 @@ const UpdateProfilePage = () => {
                 ref={fileInputRef}
                 className="hidden"
                 accept="image/*"
+                name="profile_image"
                 onChange={handleImageChange}
               />
             </div>
@@ -163,24 +210,24 @@ const UpdateProfilePage = () => {
 
             {/* Actions */}
             <div className="flex-1 ">
-              <Link href="/update_profile">
-                <Button
-                  rightIcon={
-                    <Image
-                      src={save}
-                      alt="arrow icon"
-                      width={16}
-                      height={16}
-                      className="transition-transform duration-200 group-hover:translate-x-1 w-4 h-4 ml-2.5"
-                    />
-                  }
-                  variant="primary"
-                  size="lg"
-                  className="font-medium"
-                >
-                  Save
-                </Button>
-              </Link>
+              <Button
+                type="submit"
+                disabled={isSaving}
+                rightIcon={
+                  <Image
+                    src={save}
+                    alt="arrow icon"
+                    width={16}
+                    height={16}
+                    className="transition-transform duration-200 group-hover:translate-x-1 w-4 h-4 ml-2.5"
+                  />
+                }
+                variant="primary"
+                size="lg"
+                className="font-medium"
+              >
+                {isSaving ? "Saving..." : "Save"}
+              </Button>
             </div>
           </div>
         </div>

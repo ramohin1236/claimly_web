@@ -228,6 +228,8 @@ import { User, FileText, Settings, LogOut } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useGetMyProfileQuery } from "@/store/feature/myProfileApi/myProfileApi";
+import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 
 interface AuthActionsProps {
   isLogin: boolean;
@@ -241,6 +243,9 @@ const AuthActions: React.FC<AuthActionsProps> = ({
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const { data: profileData } = useGetMyProfileQuery(undefined, { skip: !isLogin });
+  const userData = profileData?.data;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -270,25 +275,21 @@ const AuthActions: React.FC<AuthActionsProps> = ({
     router.push("/login");
   };
 
-  // Dummy user data - replace with your actual user state/context
-  const userData = {
-    name: "Mojahid Islam",
-    email: "Mojahid@gmail.com",
-    image: null, // Set to a URL string to test image mode
-  };
-
   /* ================= AVATAR COMPONENT ================= */
   const UserAvatar = ({ size = 36, fontSize = "text-sm" }: { size?: number, fontSize?: string }) => {
-    const firstLetter = userData.name?.charAt(0).toUpperCase() || "U";
+    const firstLetter = userData?.fullName?.charAt(0).toUpperCase() || "U";
+
+    // Check if profile image exists
+    const profileImg = userData?.normalUser?.[0]?.profile_image || userData?.profile_image;
 
     return (
       <div
         style={{ width: size, height: size }}
         className="relative flex items-center justify-center rounded-full overflow-hidden bg-[#2563EB] text-white shrink-0 border border-gray-100"
       >
-        {userData.image ? (
+        {profileImg ? (
           <Image
-            src={userData.image}
+            src={`${getBaseUrl()}/${profileImg.replace(/\\/g, "/")}`}
             fill
             alt="profile"
             className="object-cover"
@@ -327,8 +328,8 @@ const AuthActions: React.FC<AuthActionsProps> = ({
             <div className="flex items-center gap-3 p-3 border-b border-[#DBEAFE]">
               <UserAvatar size={40} fontSize="text-base" />
               <div className="overflow-hidden">
-                <p className="font-medium text-sm truncate">{userData.name}</p>
-                <p className="text-xs text-gray-500 truncate">{userData.email}</p>
+                <p className="font-medium text-sm truncate">{userData?.fullName || "User"}</p>
+                <p className="text-xs text-gray-500 truncate">{userData?.email}</p>
               </div>
             </div>
 
@@ -369,8 +370,8 @@ const AuthActions: React.FC<AuthActionsProps> = ({
           <div className="flex items-center gap-3 pb-4 border-b">
             <UserAvatar size={48} fontSize="text-lg" />
             <div>
-              <p className="font-semibold text-gray-900">{userData.name}</p>
-              <p className="text-sm text-gray-500">{userData.email}</p>
+              <p className="font-semibold text-gray-900">{userData?.fullName || "User"}</p>
+              <p className="text-sm text-gray-500">{userData?.email}</p>
             </div>
           </div>
 

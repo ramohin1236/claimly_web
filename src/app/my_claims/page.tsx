@@ -5,12 +5,13 @@ import ClaimsHeader from "@/components/claims/ClaimsHeader";
 import ClaimsTabs from "@/components/claims/ClaimsTabs";
 import ClaimCard, { ClaimStatus } from "@/components/claims/ClaimCard";
 import { useGetMyInsurerQuery } from "@/store/feature/insurerapi/insurerapi";
+import { getBaseUrl } from "@/lib/utils/getBaseUrl";
 
 const MyClaimsPage = () => {
   const [activeTab, setActiveTab] = useState<ClaimStatus>("UNDER_REVIEW");
   const { data, isLoading, error } = useGetMyInsurerQuery(activeTab);
   const myInsurer = data?.data || [];
-  console.log("myInsurer", myInsurer)
+  // console.log("myInsurer", myInsurer)
 
   return (
     <div className="min-h-screen ">
@@ -26,24 +27,30 @@ const MyClaimsPage = () => {
             </div>
           ) : myInsurer.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {myInsurer.map((claim: any) => (
-                <ClaimCard
-                  key={claim.id}
-                  // id={claim.id }
-                  status={activeTab}
-                 
-                  name={claim?.normalUserId?.fullName || "User"}
-                  title={claim?.policyType || "Insurance Claim"}
-                  insurer={claim?.insurerName || "Insurer"}
-                  date={claim?.createdAt ? new Date(claim.createdAt).toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                  }) : ""}
-                  avatarUrl={claim?.user?.profileImg || null}
-                  failedReason={claim?.failedReason}
-                />
-              ))}
+              {myInsurer.map((claim: any) => {
+                // Get profile_image from normalUserId
+                const profileImg = claim?.normalUserId?.profile_image;
+                const avatarUrl = profileImg
+                  ? `${getBaseUrl()}/${profileImg.replace(/\\/g, "/")}`
+                  : null;
+
+                return (
+                  <ClaimCard
+                    key={claim.id}
+                    status={activeTab}
+                    name={claim?.normalUserId?.fullName || "User"}
+                    title={claim?.policyType || "Insurance Claim"}
+                    insurer={claim?.insurerName || "Insurer"}
+                    date={claim?.createdAt ? new Date(claim.createdAt).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric"
+                    }) : ""}
+                    avatarUrl={avatarUrl}
+                    failedReason={claim?.failedReason}
+                  />
+                );
+              })}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-20 text-center">
