@@ -17,14 +17,12 @@ const insurerApi = createApi({
             invalidatesTags: ["Insurer"]
         }),
         getMyInsurer: builder.query<TResponse<any>, string>({
-            query: (status: string) => ({
-                url: '/insurer/my-insurers',
+            query: (status) => ({
+                url: `/insurer/my-insurers/${status}`,
                 method: 'GET',
-                body: {
-                    status
-                }
             }),
         }),
+
     }),
 });
 

@@ -9,9 +9,9 @@ interface ClaimsTabsProps {
 
 const ClaimsTabs: React.FC<ClaimsTabsProps> = ({ activeTab, onTabChange }) => {
     const tabs: { id: ClaimStatus; label: string }[] = [
-        { id: "under-review", label: "Under Review" },
-        { id: "report-ready", label: "Report Ready" },
-        { id: "failed", label: "Failed" },
+        { id: "UNDER_REVIEW", label: "Under Review" },
+        { id: "REPORT_READY", label: "Report Ready" },
+        { id: "FAILED", label: "Failed" },
     ];
 
     return (

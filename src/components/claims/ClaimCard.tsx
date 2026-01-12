@@ -7,7 +7,7 @@ import calander from "../../../public/calendar.svg";
 import block from "../../../public/block.svg";
 import deleteinfo from "../../../public/deleteinfo.svg";
 
-export type ClaimStatus = "under-review" | "report-ready" | "failed";
+export type ClaimStatus = "UNDER_REVIEW" | "REPORT_READY" | "FAILED";
 
 interface ClaimCardProps {
     status: ClaimStatus;
@@ -28,9 +28,9 @@ const ClaimCard: React.FC<ClaimCardProps> = ({
     failedReason,
     avatarUrl,
 }) => {
-    const isUnderReview = status === "under-review";
-    const isReportReady = status === "report-ready";
-    const isFailed = status === "failed";
+    const isUnderReview = status === "UNDER_REVIEW";
+    const isReportReady = status === "REPORT_READY";
+    const isFailed = status === "FAILED";
 
     const renderAvater = (name: string) => {
         return (
@@ -106,9 +106,9 @@ const ClaimCard: React.FC<ClaimCardProps> = ({
 
             {/* Content */}
             <div className="mb-6 flex-grow">
-                <p className="text-[#222831] text-[18px] font-medium mb-1">{name}</p>
-                <h3 className="text-black text-[28px] font-bold leading-snug mb-3">
-                    {title}
+                <p className="text-[#222831] text-[14px] mb-1">{name}</p>
+                <h3 className="text-black text-[16px] font-bold leading-snug mb-3">
+                    {title.replace(/_/g, " ")}
                 </h3>
                 <div className="flex">
                     <div className=" px-4 py-1.5 rounded-[6px] border border-[#DBEAFE] bg-[#EFF6FF] text-[#2563EB] text-[10px] font-bold uppercase flex items-center justify-center">

@@ -6,102 +6,11 @@ import ClaimsTabs from "@/components/claims/ClaimsTabs";
 import ClaimCard, { ClaimStatus } from "@/components/claims/ClaimCard";
 import { useGetMyInsurerQuery } from "@/store/feature/insurerapi/insurerapi";
 
-// Dummy Data matching Figma screenshots
-const DUMMY_CLAIMS = [
-  {
-    id: "1",
-    status: "under-review" as ClaimStatus,
-    name: "Omar Iqbal",
-    title: "Motor insurance claim",
-    insurer: "NRMA",
-    date: "12 March 2025",
-    avatarUrl: null
-  },
-  {
-    id: "2",
-    status: "under-review" as ClaimStatus,
-    name: "Omar Iqbal",
-    title: "Motor insurance claim",
-    insurer: "NRMA",
-    date: "12 March 2025",
-    avatarUrl: "/man.png"
-  },
-  {
-    id: "3",
-    status: "under-review" as ClaimStatus,
-    name: "Omar Iqbal",
-    title: "Motor insurance claim",
-    insurer: "NRMA",
-    date: "12 March 2025",
-    avatarUrl: "/man.png"
-  },
-  {
-    id: "4",
-    status: "report-ready" as ClaimStatus,
-    name: "Omar Iqbal",
-    title: "Motor insurance claim",
-    insurer: "NRMA",
-    date: "12 March 2025",
-    avatarUrl: "/man.png"
-  },
-  {
-    id: "5",
-    status: "report-ready" as ClaimStatus,
-    name: "Omar Iqbal",
-    title: "Motor insurance claim",
-    insurer: "NRMA",
-    date: "12 March 2025",
-    avatarUrl: "/man.png"
-  },
-  {
-    id: "6",
-    status: "report-ready" as ClaimStatus,
-    name: "Omar Iqbal",
-    title: "Motor insurance claim",
-    insurer: "NRMA",
-    date: "12 March 2025",
-    avatarUrl: "/man.png"
-  },
-  {
-    id: "7",
-    status: "failed" as ClaimStatus,
-    name: "Omar Iqbal",
-    title: "Motor insurance claim",
-    insurer: "NRMA",
-    date: "12 March 2025",
-    failedReason: "The documents provided don't clearly relate to the claim decision.",
-    avatarUrl: "/man.png"
-  },
-  {
-    id: "8",
-    status: "failed" as ClaimStatus,
-    name: "Omar Iqbal",
-    title: "Motor insurance claim",
-    insurer: "NRMA",
-    date: "12 March 2025",
-    failedReason: "This claim falls outside the scope of what we can currently assess.",
-    avatarUrl: "/man.png"
-  },
-  {
-    id: "9",
-    status: "failed" as ClaimStatus,
-    name: "Omar Iqbal",
-    title: "Motor insurance claim",
-    insurer: "NRMA",
-    date: "12 March 2025",
-    failedReason: "Key policy documents were missing, so we couldn't complete a review.",
-    avatarUrl: "/man.png"
-  },
-];
-
 const MyClaimsPage = () => {
-  const [activeTab, setActiveTab] = useState<ClaimStatus>("under-review");
-  const { data: myensurer, isLoading } = useGetMyInsurerQuery(activeTab)
-  console.log("getMyInsurer", myensurer)
-
-  const filteredClaims = DUMMY_CLAIMS.filter(claim => claim.status === activeTab);
-
-
+  const [activeTab, setActiveTab] = useState<ClaimStatus>("UNDER_REVIEW");
+  const { data, isLoading, error } = useGetMyInsurerQuery(activeTab);
+  const myInsurer = data?.data || [];
+  console.log("myInsurer", myInsurer)
 
   return (
     <div className="min-h-screen ">
@@ -111,10 +20,29 @@ const MyClaimsPage = () => {
         <div className="">
           <ClaimsTabs activeTab={activeTab} onTabChange={setActiveTab} />
 
-          {filteredClaims.length > 0 ? (
+          {isLoading ? (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+          ) : myInsurer.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredClaims.map((claim) => (
-                <ClaimCard key={claim.id} {...claim} />
+              {myInsurer.map((claim: any) => (
+                <ClaimCard
+                  key={claim.id}
+                  // id={claim.id }
+                  status={activeTab}
+                 
+                  name={claim?.normalUserId?.fullName || "User"}
+                  title={claim?.policyType || "Insurance Claim"}
+                  insurer={claim?.insurerName || "Insurer"}
+                  date={claim?.createdAt ? new Date(claim.createdAt).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                  }) : ""}
+                  avatarUrl={claim?.user?.profileImg || null}
+                  failedReason={claim?.failedReason}
+                />
               ))}
             </div>
           ) : (
