@@ -11,7 +11,8 @@ const MyClaimsPage = () => {
   const [activeTab, setActiveTab] = useState<ClaimStatus>("UNDER_REVIEW");
   const { data, isLoading, error } = useGetMyInsurerQuery(activeTab);
   const myInsurer = data?.data || [];
-  // console.log("myInsurer", myInsurer)
+
+  console.log("myInsurer", myInsurer)
 
   return (
     <div className="min-h-screen ">
@@ -39,7 +40,7 @@ const MyClaimsPage = () => {
                     key={claim.id}
                     status={activeTab}
                     name={claim?.normalUserId?.fullName || "User"}
-                    title={claim?.policyType || "Insurance Claim"}
+                    title={claim?.policyType || "No Policy Type"}
                     insurer={claim?.insurerName || "Insurer"}
                     date={claim?.createdAt ? new Date(claim.createdAt).toLocaleDateString("en-GB", {
                       day: "numeric",

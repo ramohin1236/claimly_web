@@ -100,7 +100,7 @@ const ClaimCard: React.FC<ClaimCardProps> = ({
                             className="w-3"
                         />
                     )}
-                    {status.replace("-", " ")}
+                    {status?.replace("-", " ")}
                 </div>
             </div>
 
@@ -108,7 +108,7 @@ const ClaimCard: React.FC<ClaimCardProps> = ({
             <div className="mb-6 flex-grow">
                 <p className="text-[#222831] text-[14px] mb-1">{name}</p>
                 <h3 className="text-black text-[16px] font-bold leading-snug mb-3">
-                    {title.replace(/_/g, " ")}
+                    {title?.replace(/_/g, " ")}
                 </h3>
                 <div className="flex">
                     <div className=" px-4 py-1.5 rounded-[6px] border border-[#DBEAFE] bg-[#EFF6FF] text-[#2563EB] text-[10px] font-bold uppercase flex items-center justify-center">

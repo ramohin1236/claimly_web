@@ -4,6 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import authApi from './feature/authApi/authApi'
 import insurerApi from './feature/insurerapi/insurerapi';
 import myProfileApi from './feature/myProfileApi/myProfileApi';
+import claimlyGuidesApi from './feature/claimlyGuides/claimlyGuidesApi';
 
 
 export const store = configureStore({
@@ -11,13 +12,15 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [insurerApi.reducerPath]: insurerApi.reducer,
     [myProfileApi.reducerPath]: myProfileApi.reducer,
-   
+    [claimlyGuidesApi.reducerPath]: claimlyGuidesApi.reducer,
+
   },
-  middleware: (getDefaultMiddleware) => 
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
-        authApi.middleware,
-        insurerApi.middleware,
-        myProfileApi.middleware
+      authApi.middleware,
+      insurerApi.middleware,
+      myProfileApi.middleware,
+      claimlyGuidesApi.middleware
     )
 })
 

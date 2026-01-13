@@ -37,9 +37,11 @@ const StepOne: React.FC<StepProps> = ({ onNext }) => {
 
         // Sync to React Hook Form
         if (isNotInsured) {
+            setValue("notInsured", true);
             setValue("insurerName", "Not insured");
-            setValue("policyType", "N/A");
+            setValue("policyType", "OTHER");
         } else {
+            setValue("notInsured", false);
             setValue("insurerName", insurerName === "Other" ? customInsurerName : insurerName);
             setValue("policyType", policyType);
         }
@@ -121,8 +123,8 @@ const StepOne: React.FC<StepProps> = ({ onNext }) => {
                 >
                     <div className="relative flex items-center justify-center">
                         <div className={`w-5 h-5 rounded-full border-2 transition-all flex items-center justify-center
-                            ${isNotInsured ? "border-[#2563EB] bg-white" : "border-[#64748B] bg-[#DBEAFE]/50"}`}>
-                            <div className={`w-2.5 h-2.5 rounded-full transition-all ${isNotInsured ? "bg-[#2563EB]" : "hidden"}`} />
+                            ${isNotInsured ? "border-[#2563EB] bg-white" : "border-[#64748B] bg-[#DBEAFE]"}`}>
+                            <div className={`w-2.5 h-2.5 rounded-full transition-all ${isNotInsured ? "bg-[#2563EB]" : "bg-[#64748B]"}`} />
                         </div>
                     </div>
                     <span className={`text-sm font-semibold transition-colors ${isNotInsured ? "text-[#1E293B]" : "text-[#64748B]"}`}>

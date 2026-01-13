@@ -13,6 +13,7 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 export type InsuranceFormInputs = {
   insurerName: string;
   policyType: string;
+  notInsured: boolean;
   incidentDate: string;
   firstNotifiedDate: string;
   incidentDescription: string;
@@ -31,6 +32,7 @@ const PostInsurance = () => {
     defaultValues: {
       insurerName: "",
       policyType: "",
+      notInsured: false,
       incidentDate: "",
       firstNotifiedDate: "",
       incidentDescription: "",
@@ -45,60 +47,68 @@ const PostInsurance = () => {
   const handleNext = () => currentPage < 4 && setCurrentPage((p) => p + 1);
   const handlePrev = () => currentPage > 1 && setCurrentPage((p) => p - 1);
 
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const onSubmit: SubmitHandler<InsuranceFormInputs> = async (data) => {
     try {
-      const formData = new FormData();
+      console.log("Submitting with data:", data);
 
-      // Add text fields
-      formData.append("insurerName", data.insurerName);
-      formData.append("policyType", data.policyType);
+      // Base data object matching user's Postman example exactly
+      const submitData: any = {
+        notInsured: !!data.notInsured,
+        incidentDate: new Date(data.incidentDate).toISOString(),
+        firstNotifiedDate: new Date(data.firstNotifiedDate).toISOString(),
+        incidentDescription: data.incidentDescription,
+        insurerResponse: data.insurerResponse,
+        userConcern: data.userConcern,
+        complaintMade: data.complaintMade,
+        complaintStatus: data.complaintStatus,
+      };
 
-      // Convert dates to ISO datetime format
-      formData.append("incidentDate", new Date(data.incidentDate).toISOString());
-      formData.append("firstNotifiedDate", new Date(data.firstNotifiedDate).toISOString());
-
-      formData.append("incidentDescription", data.incidentDescription);
-      formData.append("insurerResponse", data.insurerResponse);
-      formData.append("userConcern", data.userConcern);
-      formData.append("complaintMade", data.complaintMade);
-      formData.append("complaintStatus", data.complaintStatus);
-
-      // Add files
-      if (data.supporting_Documents && data.supporting_Documents.length > 0) {
-        Array.from(data.supporting_Documents).forEach((file) => {
-          formData.append("supporting_Documents", file);
-        });
+      // Conditionally add insurer details
+      if (!data.notInsured) {
+        submitData.insurerName = data.insurerName;
+        submitData.policyType = data.policyType;
       }
 
-      const result = await postInsurer(formData).unwrap();
+      // Handle files only if present
+      if (data.supporting_Documents && data.supporting_Documents.length > 0) {
+        toast.info("Preparing files for upload...");
+        const filePromises = Array.from(data.supporting_Documents).map((file) =>
+          fileToBase64(file)
+        );
+        submitData.supporting_Documents = await Promise.all(filePromises);
+      }
+
+      console.log("Final JSON payload:", submitData);
+
+      const result = await postInsurer(submitData).unwrap();
       console.log("Success:", result);
       toast.success(result.message || "Insurance record created successfully!");
       methods.reset();
       setCurrentPage(1);
     } catch (err: any) {
-      console.error("Submission error:", err);
+      console.error("Submission failed. Full error object:", err);
 
       let errorMessage = "Failed to submit insurance form";
-      let errorDetails = "";
-
-      if (err?.data?.message) {
+      if (err?.name === 'TypeError' && err?.message === 'Failed to fetch') {
+        errorMessage = "Network error: Connection refused or payload too large. Please try WITHOUT files first.";
+      } else if (err?.data?.message) {
         errorMessage = err.data.message;
       } else if (err?.message) {
         errorMessage = err.message;
-      } else if (typeof err === 'string') {
-        errorMessage = err;
-      }
-
-      if (err?.data?.error) {
-        errorDetails = JSON.stringify(err.data.error, null, 2);
-      } else if (err?.error) {
-        errorDetails = JSON.stringify(err.error, null, 2);
       }
 
       toast.error(errorMessage, {
-        description: errorDetails
+        description: err?.data?.error ? JSON.stringify(err.data.error) : "Check console for details"
       });
-     
     }
   };
 
