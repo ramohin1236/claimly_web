@@ -3,44 +3,45 @@
 import { useState } from "react";
 import images from "../../../public/hero 2-Photoroom.svg";
 import Image from "next/image";
+import { useGetFaqQuery } from "@/store/feature/web/webApi";
 
 interface FAQItem {
   question: string;
   answer: string;
 }
 
-const faqData: FAQItem[] = [
-  {
-    question: "What is Claimly?",
-    answer:
-      "Claimly is a digital platform that helps users submit, manage, and track motor accident insurance claims — all in one secure and organized place.",
-  },
-  {
-    question: "Who can use Claimly?",
-    answer:
-      "The launch events will take place in New York on July 18th, San Francisco on July 25th, and virtually on August 1st. Detailed schedules will be emailed after registration.",
-  },
-  {
-    question: "How does a user log in?",
-    answer:
-      "Yes, you may bring one guest with you. Please ensure that both names are included during registration as seats are limited.",
-  },
-  {
-    question: "Can users manage multiple claims?",
-    answer:
-      "Simply visit our official website and click the 'Register' button at the top of the page. You’ll receive a confirmation email within minutes.",
-  },
-  {
-    question: "Can users upload personal documents securely?",
-    answer:
-      "Yes, most venues have dedicated parking areas for attendees. You’ll receive parking details in your confirmation email.",
-  },
-  {
-    question: "Is Claimly available on mobile?",
-    answer:
-      "For any inquiries, you can email us at events@yourcompany.com or call our support line at +1 (800) 123-4567 between 9 AM – 5 PM.",
-  },
-];
+// const faqData: FAQItem[] = [
+//   {
+//     question: "What is Claimly?",
+//     answer:
+//       "Claimly is a digital platform that helps users submit, manage, and track motor accident insurance claims — all in one secure and organized place.",
+//   },
+//   {
+//     question: "Who can use Claimly?",
+//     answer:
+//       "The launch events will take place in New York on July 18th, San Francisco on July 25th, and virtually on August 1st. Detailed schedules will be emailed after registration.",
+//   },
+//   {
+//     question: "How does a user log in?",
+//     answer:
+//       "Yes, you may bring one guest with you. Please ensure that both names are included during registration as seats are limited.",
+//   },
+//   {
+//     question: "Can users manage multiple claims?",
+//     answer:
+//       "Simply visit our official website and click the 'Register' button at the top of the page. You’ll receive a confirmation email within minutes.",
+//   },
+//   {
+//     question: "Can users upload personal documents securely?",
+//     answer:
+//       "Yes, most venues have dedicated parking areas for attendees. You’ll receive parking details in your confirmation email.",
+//   },
+//   {
+//     question: "Is Claimly available on mobile?",
+//     answer:
+//       "For any inquiries, you can email us at events@yourcompany.com or call our support line at +1 (800) 123-4567 between 9 AM – 5 PM.",
+//   },
+// ];
 
 const Faq = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
@@ -48,7 +49,9 @@ const Faq = () => {
   const toggleFAQ = (index: number) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
-
+  const { data, isLoading } = useGetFaqQuery()
+  console.log("faq", data?.data)
+  const faqData = data?.data
   return (
     <div>
       {/* heading */}
@@ -89,7 +92,7 @@ const Faq = () => {
       <div className="container mx-auto px-6 lg:px-8 py-10 lg:py-28">
         {/* FAQ List */}
         <div className="divide-y divide-gray-300">
-          {faqData.map((item, index) => {
+          {faqData?.map((item: any, index: any) => {
             const isOpen = activeIndex === index;
 
             return (
@@ -98,11 +101,10 @@ const Faq = () => {
                 <button
                   onClick={() => toggleFAQ(index)}
                   className={`w-full flex items-center gap-4 py-6 text-left font-medium transition-colors
-                  ${
-                    isOpen
+                  ${isOpen
                       ? "text-blue-700"
                       : "text-slate-900 hover:text-blue-700"
-                  }
+                    }
                 `}
                 >
                   <span className="flex-1 text-base md:text-[24px] leading-[140%]">
