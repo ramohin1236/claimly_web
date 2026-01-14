@@ -12,7 +12,7 @@ const ClaimlyGuides = () => {
 
   const { data, isLoading, error } = useGetClaimlyGuidesQuery();
 
-  console.log("claimlyguides", data?.data)
+  console.log("claimlyguides==>", data?.data)
   const guidesData = data?.data || [];
 
   return (

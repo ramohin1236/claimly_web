@@ -214,15 +214,15 @@ const TestimonialCarousel: React.FC = memo(() => {
                                 {/* Profile Image */}
                                 <div className='flex items-center justify-center'>
                                     <motion.div
-                                        key={currentIndex}
+                                        key={`testimonial-image-${currentIndex}`}
                                         initial={{ scale: 0, rotate: -180 }}
                                         animate={{ scale: 1, rotate: 0 }}
                                         transition={{ type: "spring", stiffness: 200, delay: 0.8 }}
                                         className="relative w-64 z-[999] h-64 xl:w-80 xl:h-80 rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl"
                                     >
                                         <Image
-                                        height={100}
-                                        width={100}
+                                            height={100}
+                                            width={100}
                                             src={currentTestimonial?.image}
                                             alt={currentTestimonial?.name}
                                             className="w-full h-full object-cover"
@@ -251,14 +251,14 @@ const TestimonialCarousel: React.FC = memo(() => {
                                     </div>
                                 </div>
                                 <motion.div
-                                    key={currentIndex}
+                                    key={`testimonial-bg-1-${currentIndex}`}
                                     initial={{ scale: 0, rotate: -180 }}
                                     animate={{ scale: 1, rotate: 0 }}
                                     transition={{ type: "tween", stiffness: 500, delay: 0.8 }}
                                     className="absolute -top-3 bg-white -left-4 h-[110%] w-2/4"
                                 />
                                 <motion.div
-                                    key={currentIndex}
+                                    key={`testimonial-bg-2-${currentIndex}`}
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ type: "tween", stiffness: 500, delay: 1 }}

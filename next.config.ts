@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.devtunnels.ms",
       },
+      {
+        protocol: "https",
+        hostname: "claimly-insurance-server.vercel.app",
+      },
     ],
   },
 };
