@@ -5,6 +5,7 @@ import Image from "next/image";
 import Understand from "@/components/Home/Understand";
 import { useParams } from "next/navigation";
 import { useGetClaimlyGuideByIdQuery } from "@/store/feature/claimlyGuides/claimlyGuidesApi";
+import { FaSpinner } from "react-icons/fa";
 
 const ClaimlyDetails = () => {
   const { id } = useParams();
@@ -14,23 +15,7 @@ const ClaimlyDetails = () => {
 
   console.log("guide", guide)
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-xl font-semibold">Loading...</p>
-      </div>
-    );
-  }
 
-  if (isError || !guide) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <p className="text-xl font-semibold text-red-500">
-          Error loading guide details.
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -49,7 +34,15 @@ const ClaimlyDetails = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-3.5">
+          {
+            isLoading ? (
+               <div className="flex items-center justify-center min-h-[40vh]">
+          <p className="animate-spin text-[#2563EB]">
+            <FaSpinner className="text-3xl" />
+          </p>
+        </div>
+            ) : (
+                <div className="flex flex-col gap-3.5">
             <h2 className="text-2xl font-bold md:text-3xl leading-[1.5]">
               {guide?.title}
             </h2>
@@ -57,6 +50,10 @@ const ClaimlyDetails = () => {
               {guide?.details}
             </p>
           </div>
+            )
+          }
+
+        
 
           <div>
             <Understand />
