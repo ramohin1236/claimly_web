@@ -229,7 +229,7 @@ import { User, FileText, Settings, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useGetMyProfileQuery } from "@/store/feature/myProfileApi/myProfileApi";
-import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { getProfileImageUrl } from "@/lib/utils/getProfileImageUrl";
 
 interface AuthActionsProps {
   isLogin: boolean;
@@ -281,15 +281,16 @@ const AuthActions: React.FC<AuthActionsProps> = ({
 
     // Check if profile image exists
     const profileImg = userData?.normalUser?.[0]?.profile_image || userData?.profile_image;
+    const imageUrl = getProfileImageUrl(profileImg);
 
     return (
       <div
         style={{ width: size, height: size }}
         className="relative flex items-center justify-center rounded-full overflow-hidden bg-[#2563EB] text-white shrink-0 border border-gray-100"
       >
-        {profileImg ? (
+        {imageUrl ? (
           <Image
-            src={`${getBaseUrl()}/${profileImg.replace(/\\/g, "/")}`}
+            src={imageUrl}
             fill
             alt="profile"
             className="object-cover"

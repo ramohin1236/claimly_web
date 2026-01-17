@@ -12,6 +12,7 @@ import Button from "@/components/shared/Button";
 import { useGetMyProfileQuery, useUpdateProfileMutation } from "@/store/feature/myProfileApi/myProfileApi";
 import { toast } from "sonner";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { uploadToCloudinary } from "@/lib/utils/cloudinary";
 
 const UpdateProfilePage = () => {
   const router = useRouter();
@@ -64,11 +65,37 @@ const UpdateProfilePage = () => {
     e.preventDefault();
 
     try {
+      let profileImageUrl: string | undefined;
+
+      // Upload image to Cloudinary if a new image is selected
+      if (imageFile) {
+        toast.loading("Uploading image...", { id: "upload-image" });
+        try {
+          profileImageUrl = await uploadToCloudinary(imageFile);
+          toast.success("Image uploaded successfully!", { id: "upload-image" });
+        } catch (uploadError: any) {
+          const errorMessage = uploadError?.message || "Failed to upload image";
+          toast.error(errorMessage, {
+            id: "upload-image",
+            duration: 5000,
+            style: {
+              backgroundColor: "#fee2e2",
+              color: "#991b1b",
+              borderLeft: "6px solid #dc2626",
+            },
+          });
+          console.error("Upload error details:", uploadError);
+          throw uploadError;
+        }
+      }
+
       const submitData = new FormData();
       submitData.append("fullName", formData.fullName);
       submitData.append("phone", formData.phone);
-      if (imageFile) {
-        submitData.append("profile_image", imageFile);
+
+      // Send Cloudinary URL instead of file
+      if (profileImageUrl) {
+        submitData.append("profile_image", profileImageUrl);
       }
 
       const res = await updateProfile(submitData).unwrap();
