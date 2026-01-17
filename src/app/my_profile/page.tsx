@@ -9,6 +9,7 @@ import Link from "next/link";
 import Button from "@/components/shared/Button";
 import { useGetMyProfileQuery } from "@/store/feature/myProfileApi/myProfileApi";
 import { getBaseUrl } from "@/lib/utils/getBaseUrl";
+import { FaSpinner } from "react-icons/fa";
 
 const ProfilePage = () => {
   const user = {
@@ -17,10 +18,10 @@ const ProfilePage = () => {
     phone: "+880 1737705577",
     image: null,
   };
-  const { data } = useGetMyProfileQuery()
+  const { data, isLoading } = useGetMyProfileQuery()
   const userData = data?.data
   const userName = data?.data?.fullName
-  console.log(userData)
+  // console.log(userData)
 
   const firstLetter = userName?.trim().charAt(0).toUpperCase();
 
@@ -45,7 +46,15 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-6">
+      {
+        isLoading?(
+           <div className="flex items-center justify-center min-h-[40vh]">
+                    <p className="animate-spin text-[#2563EB]">
+                      <FaSpinner className="text-3xl" />
+                    </p>
+                  </div>
+        ):(
+          <div className="flex flex-col gap-6">
         {/* Profile Image Section */}
         <div className="flex">
           <div className="relative w-24 h-24 border border-[#DBEAFE] rounded-full flex items-center justify-center overflow-hidden bg-[#2563EB]">
@@ -118,6 +127,11 @@ const ProfilePage = () => {
           </Link>
         </div>
       </div>
+        )
+        
+      }
+
+      
     </div>
   );
 };

@@ -3,6 +3,7 @@ import Image from "next/image";
 import images from "../../../public/hero 2-Photoroom.svg";
 import { useGetTermsConditionsQuery } from "@/store/feature/web/webApi";
 import { div } from "framer-motion/client";
+import { FaSpinner } from "react-icons/fa";
 
 const TermsCondition = () => {
 
@@ -52,14 +53,22 @@ const TermsCondition = () => {
       </div>
 
       <div className="container mx-auto px-6 lg:px-8 py-10 lg:py-28">
-        
-        {isLoading? <div> loading.... </div> : <div
-          className="prose prose-slate max-w-none"
-          dangerouslySetInnerHTML={{
-            __html: data?.data?.description || "",
-          }}
-        />}
-        
+
+        {isLoading ? (<div className="flex items-center justify-center min-h-[40vh]">
+          <p className="animate-spin text-[#2563EB]">
+            <FaSpinner className="text-3xl" />
+          </p>
+        </div>)
+          :
+          <div
+            className="prose prose-slate max-w-none"
+            dangerouslySetInnerHTML={{
+              __html: data?.data?.description || "",
+            }}
+          />
+
+        }
+
       </div>
     </div>
   );

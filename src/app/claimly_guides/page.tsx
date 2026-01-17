@@ -3,16 +3,15 @@ import Button from "@/components/shared/Button";
 import images from "../../../public/hero 2-Photoroom.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { MdArrowOutward } from "react-icons/md";
+import { MdArrowOutward, MdCircle } from "react-icons/md";
 import { useGetClaimlyGuidesQuery } from "@/store/feature/claimlyGuides/claimlyGuidesApi";
+import { FaSpinner } from "react-icons/fa";
 
 
 
 const ClaimlyGuides = () => {
 
   const { data, isLoading, error } = useGetClaimlyGuidesQuery();
-
-  console.log("claimlyguides==>", data?.data)
   const guidesData = data?.data || [];
 
   return (
@@ -52,31 +51,42 @@ const ClaimlyGuides = () => {
       </div>
 
       {/* Main content */}
-      <div className="container mx-auto px-8 py-4 lg:my-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 md:py-28">
-          {guidesData.map((item: any) => (
-            <div
-              key={item._id}
-              className="border border-[#2563EB] py-[44px] px-[32px] rounded-2xl bg-[#EFF6FF] flex flex-col justify-between gap-6 lg:gap-6"
-            >
-              <p className="text-xl lg:text-2xl font-bold">{item.title}</p>
-
-              <Link href={`/claimly_guides/${item._id}`}>
-                <Button
-                  rightIcon={
-                    <MdArrowOutward className="text-xl" />
-                  }
-                  variant="outline"
-                  size="lg"
-                  className="font-medium"
-                >
-                  Learn more
-                </Button>
-              </Link>
-            </div>
-          ))}
+      {isLoading ? (
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <p className="animate-spin text-[#2563EB]">
+            <FaSpinner className="text-3xl" />
+          </p>
         </div>
-      </div>
+      ) : (
+        <div className="container mx-auto px-8 py-4 lg:my-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 md:py-28">
+            {guidesData.map((item: any) =>
+
+              <div
+                key={item._id}
+                className="border border-[#2563EB] py-[44px] px-[32px] rounded-2xl bg-[#EFF6FF] flex flex-col justify-between gap-6 lg:gap-6"
+              >
+                <p className="text-xl lg:text-2xl font-bold">{item.title}</p>
+
+                <Link href={`/claimly_guides/${item._id}`}>
+                  <Button
+                    rightIcon={
+                      <MdArrowOutward className="text-xl" />
+                    }
+                    variant="outline"
+                    size="lg"
+                    className="font-medium"
+                  >
+                    Learn more
+                  </Button>
+                </Link>
+              </div>
+
+            )}
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

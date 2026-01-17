@@ -13,7 +13,14 @@ const Hero = () => {
         {/* Left side */}
         <div className="flex flex-col flex-1 gap-2 md:gap-8">
 
-
+          <div className="flex py-1.5 px-4 gap-2.5 items-center border border-[#2563EB] bg-[#2563EB0D] rounded-full w-fit mb-2 md:mb-6">
+            <div className="w-4 ">
+              <div className="w-3 h-3 bg-[#22C55E] rounded-full "></div>
+            </div>
+            <p className="tracking-[1px] leading-[120%] text-black">
+              Free for a limited time
+            </p>
+          </div>
           <div className="flex flex-col gap-6 md:gap-9 ">
             <h1 className="font-semibold text-3xl md:text-[44px] leading-[120%]">
               Understand your{" "}

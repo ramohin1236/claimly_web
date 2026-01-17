@@ -2,6 +2,7 @@
 import Image from "next/image";
 import images from "../../../public/hero 2-Photoroom.svg";
 import { useGetPrivacyPolicyQuery } from "@/store/feature/web/webApi";
+import { FaSpinner } from "react-icons/fa";
 
 const PrivacyPolicy = () => {
 
@@ -54,13 +55,24 @@ const PrivacyPolicy = () => {
   <div className="text-slate-700 space-y-6 text-sm lg:text-base leading-relaxed">
     <div className="space-y-3">
       {/* <h3 className="font-semibold text-slate-900">🔒 Privacy Policy</h3> */}
-
-      <div
+       
+       {
+        isLoading? (
+           <div className="flex items-center justify-center min-h-[40vh]">
+          <p className="animate-spin text-[#2563EB]">
+            <FaSpinner className="text-3xl" />
+          </p>
+        </div>
+        ):(
+          <div
         className="prose prose-slate max-w-none"
         dangerouslySetInnerHTML={{
           __html: data?.data?.description || "",
         }}
       />
+        )
+       }
+      
     </div>
   </div>
 </div>
