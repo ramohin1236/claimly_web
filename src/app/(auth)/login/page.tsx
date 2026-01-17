@@ -32,6 +32,13 @@ const Page: React.FC = () => {
       if (response?.success) {
         localStorage.setItem("accessToken", response?.data?.accessToken);
         localStorage.setItem("email", data.email);
+
+        const redirect =
+          new URLSearchParams(window.location.search).get("redirect") || "/";
+
+        router.replace(redirect);
+
+
         toast.success(response?.message || "Login successful", {
           style: {
             backgroundColor: "#dcfce7",
@@ -39,7 +46,6 @@ const Page: React.FC = () => {
             borderLeft: "6px solid #16a34a",
           },
         });
-        router.push("/");
 
       }
     } catch (error: any) {

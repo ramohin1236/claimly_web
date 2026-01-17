@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 import LayoutWrapper from "@/components/shared/LayoutWrapper";
 import ReduxProvider from "@/store/ReduxProvider";
 import { Toaster } from "sonner";
+import PrivateRoute from "@/PrivateRoute/PrivateRoute";
 
 export default function RootLayout({
   children,
@@ -31,10 +32,12 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ReduxProvider>
-          <LayoutWrapper>
-            <Toaster position="top-right" richColors />
-            {children}
-          </LayoutWrapper>
+          <PrivateRoute>
+            <LayoutWrapper>
+              <Toaster position="top-right" richColors />
+              {children}
+            </LayoutWrapper>
+          </PrivateRoute>
         </ReduxProvider>
 
       </body>
