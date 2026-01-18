@@ -39,7 +39,12 @@ const UpdateProfilePage = () => {
         phone: user.phone || "",
       });
       if (user.normalUser?.[0]?.profile_image) {
-        setProfileImage(`${getBaseUrl()}/${user.normalUser[0].profile_image.replace(/\\/g, "/")}`);
+        const imgUrl = user.normalUser[0].profile_image;
+        // Check if it's already a full URL (Cloudinary) or a relative path
+        const fullImageUrl = imgUrl.startsWith('http')
+          ? imgUrl
+          : `${getBaseUrl()}/${imgUrl.replace(/\\/g, "/")}`;
+        setProfileImage(fullImageUrl);
       }
     }
   }, [profileData]);

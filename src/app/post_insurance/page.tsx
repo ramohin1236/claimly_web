@@ -21,7 +21,7 @@ export type InsuranceFormInputs = {
   userConcern: string;
   complaintMade: string;
   complaintStatus: string;
-  supporting_Documents: FileList | null;
+  supporting_Documents: FileList | null | string[];
 };
 
 const PostInsurance = () => {
@@ -82,10 +82,16 @@ const PostInsurance = () => {
       }
 
       // ✅ FILE HANDLING
-      if (data.supporting_Documents?.length) {
-        Array.from(data.supporting_Documents).forEach((file) => {
-          formData.append("supporting_Documents", file);
-        });
+      if (data.supporting_Documents) {
+        if (Array.isArray(data.supporting_Documents)) {
+          // Cloudinary URLs
+          formData.append("supporting_Documents", JSON.stringify(data.supporting_Documents));
+        } else if (data.supporting_Documents.length) {
+          // FileList (fallback for legacy behavior)
+          Array.from(data.supporting_Documents).forEach((file) => {
+            formData.append("supporting_Documents", file);
+          });
+        }
       }
 
       const res = await postInsurer(formData).unwrap();

@@ -4,6 +4,7 @@ import React from "react";
 import insurer from "../../../public/insurer.svg";
 import { useFormContext } from "react-hook-form";
 import { InsuranceFormInputs } from "@/app/post_insurance/page";
+import { uploadToCloudinary } from "@/lib/utils/cloudinary";
 
 interface StepProps {
     onPrev: () => void;
@@ -11,11 +12,17 @@ interface StepProps {
     isLoading: boolean;
 }
 
+interface UploadedFile {
+    name: string;
+    url: string;
+}
+
 const StepFour: React.FC<StepProps> = ({ onPrev, onSubmit, isLoading }) => {
-    const { register, watch, setValue } = useFormContext<InsuranceFormInputs>();
+    const { setValue } = useFormContext<InsuranceFormInputs>();
     const [consentChecked, setConsentChecked] = React.useState(false);
-    const [files, setFiles] = React.useState<File[]>([]);
+    const [uploadedFiles, setUploadedFiles] = React.useState<UploadedFile[]>([]);
     const [errors, setErrors] = React.useState<{ [key: string]: string }>({});
+    const [uploading, setUploading] = React.useState(false);
     const fileInputRef = React.useRef<HTMLInputElement>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -27,33 +34,70 @@ const StepFour: React.FC<StepProps> = ({ onPrev, onSubmit, isLoading }) => {
         setErrors({});
 
         try {
-            // Create a FileList-like object from files array
-            const dataTransfer = new DataTransfer();
-            files.forEach(file => dataTransfer.items.add(file));
-            setValue("supporting_Documents", dataTransfer.files);
+            // Store the Cloudinary URLs as a JSON string in supporting_Documents
+            if (uploadedFiles.length > 0) {
+                const urls = uploadedFiles.map(f => f.url);
+                setValue("supporting_Documents", urls);
+            }
 
             // Call the parent's submit handler
-            await onSubmit(e as any);
+            await onSubmit(e as React.BaseSyntheticEvent);
         } catch (error) {
             // Error is already handled in parent component
             console.error("Submission failed:", error);
         }
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const newFiles = Array.from(e.target.files);
-            setFiles(prev => [...prev, ...newFiles]);
+            
+            // Validate all files are images
+            const invalidFiles = newFiles.filter(f => !isValidImageFile(f));
+            if (invalidFiles.length > 0) {
+                setErrors({ 
+                    upload: `Only image files are allowed (JPG, PNG, GIF, WebP). Invalid files: ${invalidFiles.map(f => f.name).join(', ')}`
+                });
+                // Reset file input
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+                return;
+            }
+            
+            setUploading(true);
+            try {
+                for (const file of newFiles) {
+                    const url = await uploadToCloudinary(file);
+                    setUploadedFiles(prev => [...prev, { name: file.name, url }]);
+                }
+                setErrors({});
+            } catch (error) {
+                setErrors({ 
+                    upload: error instanceof Error ? error.message : "Failed to upload file. Please try again."
+                });
+            } finally {
+                setUploading(false);
+                // Reset file input
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
+            }
         }
     };
 
     const removeFile = (fileName: string) => {
-        setFiles(files.filter(f => f.name !== fileName));
+        setUploadedFiles(uploadedFiles.filter(f => f.name !== fileName));
+    };
+
+    const isValidImageFile = (file: File): boolean => {
+        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        return validTypes.includes(file.type);
     };
 
     const isImage = (fileName: string) => {
         const ext = fileName.split('.').pop()?.toLowerCase();
-        return ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(ext || '');
+        return ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext || '');
     };
 
     return (
@@ -73,33 +117,37 @@ const StepFour: React.FC<StepProps> = ({ onPrev, onSubmit, isLoading }) => {
             {/* Upload Section */}
             <div>
                 <label className="block text-[#1E293B] text-sm font-medium mb-1">
-                    Upload supporting documents
+                    Upload images
                 </label>
                 <input
                     type="file"
                     ref={fileInputRef}
                     className="hidden"
                     multiple
-                    accept=".pdf,.jpg,.jpeg,.png,.gif,.doc,.docx"
+                    accept=".jpg,.jpeg,.png,.gif,.webp"
                     onChange={handleFileChange}
+                    disabled={uploading}
                 />
                 <div
-                    onClick={() => fileInputRef.current?.click()}
-                    className="border border-[#DBEAFE] rounded-[12px] p-4 bg-white flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors"
+                    onClick={() => !uploading && fileInputRef.current?.click()}
+                    className={`border border-[#DBEAFE] rounded-[12px] p-4 bg-white flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors ${uploading ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                     <div className="flex items-center gap-2 text-[#64748B] text-sm">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 16V8M12 8L9 11M12 8L15 11M4 17C4 18.1046 4.89543 19 6 19H18C19.1046 19 20 18.1046 20 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <span>Upload all relevant documents here (e.g PDS, Certificate of insurance, letters, etc.).</span>
+                        <span>{uploading ? 'Uploading...' : 'Upload images here (JPG, PNG, GIF, WebP)'}</span>
                     </div>
                 </div>
+                {errors.upload && (
+                    <p className="text-red-500 text-xs mt-2">{errors.upload}</p>
+                )}
             </div>
 
             {/* File List */}
-            {files.length > 0 && (
+            {uploadedFiles.length > 0 && (
                 <div className="space-y-2">
-                    {files.map((file, index) => (
+                    {uploadedFiles.map((file, index) => (
                         <div key={index} className="flex justify-between items-center bg-[#EFF6FF] border border-[#2563EB] rounded-[12px] px-4 py-3">
                             <div className="flex items-center gap-3">
                                 <div className="bg-white p-2 rounded-lg border border-[#DBEAFE] flex flex-col items-center min-w-[40px]">
@@ -168,16 +216,16 @@ const StepFour: React.FC<StepProps> = ({ onPrev, onSubmit, isLoading }) => {
                     type="button"
                     onClick={onPrev}
                     className="px-8 py-2.5 border border-[#2563EB] text-[#2563EB] font-medium rounded-[12px] hover:bg-blue-50 transition-colors"
-                    disabled={isLoading}
+                    disabled={isLoading || uploading}
                 >
                     Previous
                 </button>
                 <button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isLoading || uploading}
                     className="px-10 py-2.5 bg-[#2563EB] text-white font-medium rounded-[12px] hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    {isLoading ? "Submitting..." : "Submit"}
+                    {isLoading ? "Submitting..." : uploading ? "Uploading..." : "Submit"}
                 </button>
             </div>
 
@@ -190,7 +238,7 @@ const StepFour: React.FC<StepProps> = ({ onPrev, onSubmit, isLoading }) => {
                     </svg>
                 </div>
                 <p className="text-[#B45309] text-[13px] leading-relaxed">
-                    Please redact or black out sensitive personal information where possible (e.g. licence numbers, Addresses, bank details, etc). Only include information relevant to your claim.
+                    Please upload only image files (JPG, PNG, GIF, WebP). Make sure to redact or black out any sensitive personal information where possible (e.g. licence numbers, addresses, bank details, etc). Only include information relevant to your claim.
                 </p>
             </div>
         </form>

@@ -1,7 +1,7 @@
 /**
- * Upload an image to Cloudinary
- * @param file - The image file to upload
- * @returns The secure URL of the uploaded image
+ * Upload a file to Cloudinary (images to image endpoint, other files to raw endpoint)
+ * @param file - The file to upload
+ * @returns The secure URL of the uploaded file
  */
 export const uploadToCloudinary = async (file: File): Promise<string> => {
     const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
@@ -24,13 +24,17 @@ export const uploadToCloudinary = async (file: File): Promise<string> => {
         throw new Error(errorMsg);
     }
 
+    // Determine resource type based on file type
+    const isImage = file.type.startsWith('image/');
+    const resourceType = isImage ? 'image' : 'raw';
+
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", uploadPreset);
 
     try {
-        const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
-        console.log("Uploading to:", uploadUrl);
+        const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`;
+        console.log("Uploading to:", uploadUrl, "with resource type:", resourceType);
 
         const response = await fetch(uploadUrl, {
             method: "POST",
@@ -43,7 +47,7 @@ export const uploadToCloudinary = async (file: File): Promise<string> => {
             const errorData = await response.json().catch(() => ({}));
             console.error("Cloudinary error response:", errorData);
             throw new Error(
-                `Failed to upload image to Cloudinary: ${errorData.error?.message || response.statusText}`
+                `Failed to upload file to Cloudinary: ${errorData.error?.message || response.statusText}`
             );
         }
 
