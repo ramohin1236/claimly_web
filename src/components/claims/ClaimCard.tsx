@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Download } from "lucide-react";
 import clock from "../../../public/clock.svg";
 import calander from "../../../public/calendar.svg";
 import block from "../../../public/block.svg";
@@ -52,6 +51,7 @@ const ClaimCard: React.FC<ClaimCardProps> = ({
                             width={44}
                             height={44}
                             className="object-cover rounded-full h-full w-full"
+                            priority={false}
                         />
                     )}
                 </div>
@@ -129,21 +129,6 @@ const ClaimCard: React.FC<ClaimCardProps> = ({
                     </span>
                     <span className="text-[#64748B] text-xs font-semibold">{date}</span>
                 </div>
-
-                {!isFailed && (
-                    <button
-                        disabled={isUnderReview}
-                        className={`flex items-center gap-2 px-4 py-2 rounded-[8px] text-xs font-bold transition-all
-                            ${isReportReady
-                                ? "bg-[#2563EB] text-white hover:bg-[#1d4ed8] shadow-sm shadow-blue-100"
-                                : "bg-[#F1F5F9] text-[#CBD5E1] cursor-not-allowed"
-                            }
-                        `}
-                    >
-                        <Download size={14} />
-                        Download
-                    </button>
-                )}
             </div>
 
             {/* Failed Warning Box */}

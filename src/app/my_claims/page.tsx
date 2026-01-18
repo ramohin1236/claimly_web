@@ -34,8 +34,11 @@ const MyClaimsPage = () => {
               {myInsurer.map((claim: any) => {
                 // Get profile_image from normalUserId
                 const profileImg = claim?.normalUserId?.profile_image;
+                // Check if it's already a full URL (Cloudinary) or a relative path
                 const avatarUrl = profileImg
-                  ? `${getBaseUrl()}/${profileImg.replace(/\\/g, "/")}`
+                  ? profileImg.startsWith('http') 
+                    ? profileImg 
+                    : `${getBaseUrl()}/${profileImg.replace(/\\/g, "/")}`
                   : null;
 
                 return (
